@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"         
+             xmlns:views="clr-namespace:ChildScheduler.Views"
+    xmlns:renderers="clr-namespace:ChildScheduler.Renderers"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:local="clr-namespace:ChildScheduler.CustomRenderer"
+             mc:Ignorable="d"
+            xmlns:models="clr-namespace:ChildScheduler.Models"
+             x:Class="ChildScheduler.LoginPages.MainPage"
+             xmlns:viewmodels="clr-namespace:ChildScheduler.ViewModels" x:DataType="viewmodels:LoginViewModel"
+             NavigationPage.HasNavigationBar="False"
+             >
+    <ContentPage.BindingContext>
+        <viewmodels:LoginViewModel />
+    </ContentPage.BindingContext>
+
+    <StackLayout>
+
+        <Grid>
+            
+            <StackLayout Padding="0" Margin="0" HorizontalOptions="FillAndExpand">
+                <Frame HeightRequest="250" BackgroundColor="HotPink" Padding="0" Margin="0">
+                    <Image Source="login_bg.jpg" Aspect="AspectFill" Margin="0"/>
+                </Frame>
+
+            </StackLayout>
+            
+
+            <StackLayout Padding="0" Margin="10,100,10,0" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                <Frame  BackgroundColor="White" HeightRequest="500" HasShadow="True" Padding="0" Margin="0" CornerRadius="20">
+
+                    <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                        <StackLayout Margin="10,20,10,10">
+                            <Label Text="LOGOWANIE" TextColor="Black"  HorizontalOptions="CenterAndExpand" FontAttributes="Bold"/>
+                        </StackLayout>
+
+                        <StackLayout Padding="0" Margin="15,10">
+
+                            <StackLayout>
+                                <Frame x:Name="EmailFrame" BackgroundColor="Transparent" BorderColor="DarkGray" Padding="0" HorizontalOptions="FillAndExpand" CornerRadius="30">
+                                    <StackLayout Orientation="Horizontal">
+                                        <Frame BackgroundColor="SkyBlue" HeightRequest="40" WidthRequest="40" CornerRadius="30" Padding="0" Margin="5">
+                                            <Image Source="avatar.png" Aspect="AspectFill" Margin="0"/>
+                                        </Frame>
+
+                                        <local:CustomEntry Placeholder="Email" TextColor="{StaticResource Accent}" Text="{Binding User.Email}" FontAttributes="None" HorizontalOptions="FillAndExpand" Margin="0,0,20,0"/>
+                                    </StackLayout>
+                                </Frame>
+
+                                <Frame x:Name="PasswordFrame" BackgroundColor="Transparent" BorderColor="DarkGray" Margin="0,15,0,0" Padding="0" HorizontalOptions="FillAndExpand" CornerRadius="30">
+                                    <StackLayout Orientation="Horizontal">
+                                        <Frame BackgroundColor="SkyBlue" HeightRequest="40" WidthRequest="40" CornerRadius="30" Padding="0" Margin="5">
+                                            <Image Source="lock_icon_6813906.jpg" Aspect="AspectFill" Margin="0"/>
+                                        </Frame>
+
+                                        <local:CustomEntry Placeholder="Hasło" IsPassword="True" TextColor="{StaticResource Accent}" Text="{Binding User.Password}" FontAttributes="None" HorizontalOptions="FillAndExpand" Margin="0,0,20,0"/>
+                                    </StackLayout>
+                                </Frame>
+
+                            </StackLayout>
+
+                            <views:ButtonWithActivityIndicator x:Name="ButtonWithSpinner" Text="ZALOGUJ" Command="{Binding LoginCommand}" BorderButtonColor="Red" ButtonColor="Red" Clicked="OnClicked" ActivityIndicatorColor="Pink" />
+                            <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+                                <Label Text="Nie posiadasz konta?" TextColor="DarkGray" FontSize="Small"/>
+                                <Label Text="Zarejestruj się" TextColor="{StaticResource Accent}" FontAttributes="Bold" FontSize="Small">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding RegisterCommand}"/>
+                                    </Label.GestureRecognizers>
+                                </Label>
+                            </StackLayout>
+
+                            <StackLayout Margin="0,25,0,0" Padding="0">
+                                <Grid>
+                                    <BoxView BackgroundColor="DarkGray" HeightRequest="1" WidthRequest="150"  HorizontalOptions="Center" VerticalOptions="Center"/>
+                                    
+                                    <Frame BackgroundColor="White" HeightRequest="45" WidthRequest="45" CornerRadius="45" HasShadow="False" BorderColor="DarkGray" Margin="0" HorizontalOptions="Center" Padding="0">
+                                        <Label Text="LUB" TextColor="DarkGray" FontSize="Small" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+                                    </Frame>
+                                </Grid>
+                            </StackLayout>
+
+                            <StackLayout Margin="0,25" Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+                                <Frame BackgroundColor="White" HeightRequest="45" WidthRequest="45" CornerRadius="45" HasShadow="False" BorderColor="DarkGray" Margin="0" HorizontalOptions="Center" Padding="0">
+                                    <Image Source="facebook_logo.png" Aspect="AspectFill" Margin="0"/>
+                                </Frame>
+                                <Frame BackgroundColor="White" HeightRequest="45" WidthRequest="45" CornerRadius="45" HasShadow="False" BorderColor="DarkGray" Margin="0" HorizontalOptions="Center" Padding="0">
+                                    <Image Source="https://blog.hubspot.com/hubfs/image8-2.jpg" Aspect="AspectFill" Margin="0"/>
+                                </Frame>
+                            </StackLayout>
+
+                        </StackLayout>
+
+
+                    </StackLayout>
+
+                </Frame>
+
+            </StackLayout>
+        </Grid>
+    </StackLayout>
+
+</ContentPage>

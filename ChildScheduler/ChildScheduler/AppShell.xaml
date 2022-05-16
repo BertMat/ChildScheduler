@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Shell xmlns="http://xamarin.com/schemas/2014/forms" 
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:local="clr-namespace:ChildScheduler.Views"
+       xmlns:loginPage="clr-namespace:ChildScheduler.LoginPages"
+        xmlns:profile="clr-namespace:ChildScheduler.Views.Profile"
+        xmlns:views="clr-namespace:ChildScheduler.Views"
+        xmlns:contacts="clr-namespace:ChildScheduler.Views.Contacts"
+        xmlns:categories="clr-namespace:ChildScheduler.Views.Categories"
+        xmlns:families="clr-namespace:ChildScheduler.Views.Families"
+        xmlns:costs="clr-namespace:ChildScheduler.Views.Costs"
+        xmlns:events="clr-namespace:ChildScheduler.Views.Events"
+        xmlns:calendar="clr-namespace:ChildScheduler.Views.Calendar"
+        xmlns:helpers="clr-namespace:ChildScheduler.Helpers"
+       xmlns:vm="clr-namespace:ChildScheduler.ViewModels"
+       Title="ChildScheduler"
+       x:Class="ChildScheduler.AppShell">
+
+    <!--
+        The overall app visual hierarchy is defined here, along with navigation.
+    
+        https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/shell/
+    -->
+
+    <Shell.BindingContext>
+        <vm:AppViewModel/>
+    </Shell.BindingContext>
+
+    <Shell.Resources>
+        <ResourceDictionary>
+            <Style x:Key="BaseStyle" TargetType="Element">
+                <Setter Property="Shell.BackgroundColor" Value="#FFFEFF" />
+                <Setter Property="Shell.ForegroundColor" Value="Black" />
+                <Setter Property="Shell.TitleColor" Value="Black" />
+                <Setter Property="Shell.DisabledColor" Value="#B4FFFFFF" />
+                <Setter Property="Shell.UnselectedColor" Value="#B4B4BA" />
+                <Setter Property="Shell.TabBarBackgroundColor" Value="{StaticResource TabBarBackground}" />
+                <!--<Setter Property="Shell.TabBarForegroundColor" Value="{StaticResource TabIconSelected}" />-->
+                <Setter Property="Shell.TabBarUnselectedColor" Value="{StaticResource TabIconUnselected}" />
+                <Setter Property="Shell.TabBarTitleColor" Value="{StaticResource TabIconSelected}" />
+            </Style>
+            <Style BasedOn="{StaticResource BaseStyle}" TargetType="TabBar" />
+            <Style BasedOn="{StaticResource BaseStyle}" TargetType="FlyoutItem" />
+
+        </ResourceDictionary>
+    </Shell.Resources>
+
+    <TabBar Route="MainTabs">
+        <Tab Title="Featured"
+             Route="FeaturedPage"
+             Shell.NavBarIsVisible="False"
+             >
+            <Tab.Icon>
+                <FontImageSource FontFamily="FASolid"
+                                     Glyph="{x:Static helpers:FAIcons.Star}"/>
+            </Tab.Icon>
+        </Tab>
+        <Tab Title="Challenges"
+             Route="ChallengesPage"
+             Shell.NavBarIsVisible="False"
+             >
+            <Tab.Icon>
+                <FontImageSource FontFamily="FASolid"
+                                     Glyph="{x:Static helpers:FAIcons.Trophy}"/>
+            </Tab.Icon>
+        </Tab>
+        <Tab Title="KONTAKTY"
+             Route="ContactsPage"
+             Shell.NavBarIsVisible="False"
+             >
+            <Tab.Icon>
+                <FontImageSource FontFamily="FARegular"
+                                     Glyph="{x:Static helpers:FAIcons.AddressBook}"/>
+            </Tab.Icon>
+
+            <ShellContent
+                Title="WYDARZENIA"
+                ContentTemplate="{DataTemplate contacts:ListPage}"/>
+        </Tab>
+        <Tab Title="RODZINA"
+             Route="ProfilePage"
+             Shell.NavBarIsVisible="False">
+            <Tab.Icon>
+                <FontImageSource FontFamily="FASolid"
+                                     Glyph="{x:Static helpers:FAIcons.Users}"/>
+            </Tab.Icon>
+
+
+            <ShellContent
+                Title="CZŁONKOWIE"
+                ContentTemplate="{DataTemplate families:FamilyPage}"/>
+            <ShellContent
+                Title="KALENDARZ"
+                ContentTemplate="{DataTemplate calendar:AdvancedPage}"/>
+            <ShellContent
+                Title="WYDARZENIA"
+                ContentTemplate="{DataTemplate events:EventListPage}"/>
+            <ShellContent
+                Title="FINANSE"
+                ContentTemplate="{DataTemplate costs:CostDiagramPage}"/>
+
+        </Tab>
+        <Tab Title="PROFIL"
+             x:Name="loginPage"
+             Route="MainPage"
+             Shell.NavBarIsVisible="False">
+            <Tab.Icon>
+                <FontImageSource FontFamily="FASolid"
+                                     Glyph="{x:Static helpers:FAIcons.GripLines}"/>
+            </Tab.Icon>
+            <ShellContent
+                ContentTemplate="{DataTemplate profile:ProfileOverviewPage}"/>
+        </Tab>
+    </TabBar>
+
+</Shell>

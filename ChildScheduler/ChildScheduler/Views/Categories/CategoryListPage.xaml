@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:viewmodels="clr-namespace:ChildScheduler.ViewModels.Categories"
+            xmlns:converters="clr-namespace:ChildScheduler.Converters"
+            xmlns:models="clr-namespace:ChildScheduler.Models"
+            xmlns:pancakeview="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             x:Class="ChildScheduler.Views.Categories.CategoryListPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:BooleanInverter x:Key="BooleanInverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.BindingContext>
+        <viewmodels:CategoryListViewModel></viewmodels:CategoryListViewModel>
+    </ContentPage.BindingContext>
+    <ContentPage.ToolbarItems>
+        <!--  The Refresh ToolBarItem is only for UWP. See code-behind.  -->
+        <ToolbarItem Command="{Binding RefreshCommand}" Text="Refresh">
+            <ToolbarItem.IconImageSource>
+                <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}" Glyph="{StaticResource IconRefresh}" />
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Frame
+            Margin="12,12,12,0"
+            Padding="0"
+            Style="{DynamicResource FrameStyle}">
+            <SearchBar
+                BackgroundColor="{DynamicResource SystemGray4}"
+                CancelButtonColor="{DynamicResource SystemGray}"
+                Placeholder="Szukaj.."
+                TextChanged="SearchBar_TextChanged"
+                PlaceholderColor="{DynamicResource SystemGray2}"
+                TextColor="{DynamicResource SystemGray}" />
+        </Frame>
+        <ListView
+            x:Name="categoryList"
+            Grid.Row="1"
+            BackgroundColor="Transparent"
+            CachingStrategy="RecycleElement"
+            HasUnevenRows="True"
+            IsPullToRefreshEnabled="true"
+            IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+            ItemSelected="ItemSelected"
+            ItemTapped="ItemTapped"
+            ItemsSource="{Binding Categories}"
+            RefreshCommand="{Binding RefreshCommand}"
+            SeparatorVisibility="None">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell x:DataType="models:Category">
+                        <ViewCell.ContextActions>
+                            <MenuItem
+                                CommandParameter="{Binding CategoryName}"
+                                Text="Nazwa" />
+                        </ViewCell.ContextActions>
+                        <Frame Margin="12,6" 
+                               InputTransparent="True"
+                               Style="{DynamicResource FrameStyle}">
+                            <Grid ColumnSpacing="12">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="100" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <pancakeview:PancakeView
+                                    CornerRadius="40,15,15,40"
+                                    HeightRequest="50"
+                                    HorizontalOptions="Center"
+                                    IsClippedToBounds="True"
+                                    Style="{DynamicResource PancakeStyle}"
+                                    VerticalOptions="Center"
+                                    WidthRequest="50">
+                                    <Image Aspect="AspectFill"/>
+                                </pancakeview:PancakeView>
+                                <StackLayout Grid.Column="1" VerticalOptions="Center">
+                                    <Label FontSize="20" Text="{Binding CategoryName}" />
+                                </StackLayout>
+                            </Grid>
+                        </Frame>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <Frame
+            Grid.RowSpan="2"
+            Margin="8"
+            Padding="0"
+            CornerRadius="28"
+            HasShadow="True"
+            HeightRequest="56"
+            HorizontalOptions="End"
+            Style="{DynamicResource FrameStyle}"
+            BackgroundColor="{DynamicResource PrimaryColor}"
+            VerticalOptions="End"
+            WidthRequest="56">
+            <ImageButton
+                Padding="12"
+                Command="{Binding AddNewCommand}"
+                HorizontalOptions="FillAndExpand"
+                Style="{DynamicResource FloatingActionButtonStyle}"
+                BackgroundColor="{DynamicResource PrimaryColor}"
+                VerticalOptions="FillAndExpand">
+                <ImageButton.Source>
+                    <FontImageSource
+                        FontFamily="{DynamicResource MaterialFontFamily}"
+                        Glyph="{StaticResource IconAdd}"
+                        Color="White" />
+                </ImageButton.Source>
+            </ImageButton>
+        </Frame>
+
+    </Grid>
+</ContentPage>

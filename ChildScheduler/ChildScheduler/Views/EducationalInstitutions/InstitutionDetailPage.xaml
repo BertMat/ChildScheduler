@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    x:Class="ChildScheduler.Views.EducationalInstitutions.InstitutionDetailPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converters="clr-namespace:ChildScheduler.Converters"
+    xmlns:helpers="clr-namespace:ChildScheduler.Helpers"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewmodels="clr-namespace:ChildScheduler.ViewModels.EducationalInstitutions"
+    xmlns:models="clr-namespace:ChildScheduler.Models"
+    BackgroundColor="{DynamicResource WindowBackgroundColor}"
+    NavigationPage.BackButtonTitle="Back"
+    NavigationPage.HasNavigationBar="True"
+    mc:Ignorable="d"
+    x:DataType="viewmodels:InstitutionDetailViewModel">
+    <d:ContentPage.BindingContext>
+        <viewmodels:InstitutionDetailViewModel />
+    </d:ContentPage.BindingContext>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:BooleanInverter x:Key="BooleanInverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid RowSpacing="12">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="100" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <StackLayout Grid.Column="0" >
+
+            <Label BindingContext="{Binding Institution}" Style="{DynamicResource MicroLabelStyle}" Padding="20,20,0,0">
+                <Label.FormattedText>
+                    <FormattedString x:DataType="models:EducationalInstitution">
+                        <Span Text="{Binding FullName}" FontAttributes="Bold"/>
+                        <Span Text="&#x0a;"/>
+                        <Span Text="{Binding Name}"/>
+                        <Span Text="&#x0a;"/>
+                        <Span Text="{Binding Street}"/>
+                        <Span Text="&#x0a;"/>
+                        <Span Text="{Binding City}"/>
+                        <Span Text=", "/>
+                        <Span Text="{Binding StatePostal}"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+
+
+
+
+        </StackLayout>
+
+        <StackLayout
+            HorizontalOptions="Center"
+            Orientation="Horizontal"
+            Spacing="24"
+            Grid.Row="1"
+            Grid.ColumnSpan="2">
+            <ImageButton
+                Command="{Binding GetDirectionsCommand}"
+                CommandParameter="{Binding Institution}"
+                BackgroundColor="Transparent"
+                VerticalOptions="Center">
+                <ImageButton.Source>
+                    <FontImageSource
+                        FontFamily="FASolid"
+                        Glyph="{x:Static helpers:FAIcons.MapSigns}"
+                        Color="{DynamicResource PrimaryColor}" />
+                </ImageButton.Source>
+            </ImageButton>
+            <ImageButton
+                Padding="12"
+                Command="{Binding EditCommand}"
+                HorizontalOptions="FillAndExpand"
+                Style="{DynamicResource FloatingActionButtonStyle}"
+                BackgroundColor="Transparent"
+                VerticalOptions="FillAndExpand">
+                <ImageButton.Source>
+                    <FontImageSource FontFamily="FASolid"
+                                     Glyph="{x:Static helpers:FAIcons.Edit}"
+                        Color="{DynamicResource PrimaryColor}"/>
+                </ImageButton.Source>
+            </ImageButton>
+        </StackLayout>
+
+        <Grid Grid.Row="2" Grid.ColumnSpan="2">
+
+            <Frame
+                Margin="16"
+                Style="{DynamicResource FrameStyle}"
+                VerticalOptions="Center">
+                <StackLayout Spacing="20">
+                    <Label
+                        Style="{DynamicResource SmallLabelStyle}"
+                        Text="No map is available because this person does not have an address."
+                        VerticalTextAlignment="Center" />
+                    <Label
+                        Style="{DynamicResource SmallLabelStyle}"
+                        Text="Enter an address on the edit screen to see this person's location on a map."
+                        VerticalTextAlignment="Center" />
+                </StackLayout>
+            </Frame>
+            <AbsoluteLayout
+                AbsoluteLayout.LayoutBounds="0, 0, 1.0, 1.0"
+                AbsoluteLayout.LayoutFlags="All"
+                IsEnabled="{Binding HasAddress}"
+                IsVisible="{Binding HasAddress}">
+                <ActivityIndicator
+                    AbsoluteLayout.LayoutBounds="0.5, 0.5, 0.2, AutoSize"
+                    AbsoluteLayout.LayoutFlags="PositionProportional, WidthProportional"
+                    IsRunning="{Binding IsBusy}"
+                    IsVisible="{Binding IsBusy}" />
+                <maps:Map
+                    x:Name="MyContactsMap"
+                    AbsoluteLayout.LayoutBounds="0, 0, 1.0, 1.0"
+                    AbsoluteLayout.LayoutFlags="All"
+                    IsVisible="true" />
+            </AbsoluteLayout>
+        </Grid>
+    </Grid>
+</ContentPage>

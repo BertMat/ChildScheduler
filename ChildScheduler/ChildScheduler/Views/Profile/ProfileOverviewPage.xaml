@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             xmlns:local="clr-namespace:ChildScheduler.CustomRenderer"
+             x:Class="ChildScheduler.Views.Profile.ProfileOverviewPage"
+             BackgroundColor="White"
+             xmlns:viewmodels="clr-namespace:ChildScheduler.ViewModels" 
+             xmlns:models="clr-namespace:ChildScheduler.Models" 
+             x:DataType="viewmodels:ProfileOverviewViewModel"
+             >
+    <ContentPage.BindingContext>
+        <viewmodels:ProfileOverviewViewModel />
+    </ContentPage.BindingContext>
+    <RefreshView
+        Command="{Binding RefreshCommand}"
+        IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+        RefreshColor="Red">
+        <ScrollView>
+            <Grid ColumnSpacing="0" RowSpacing="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="AUTO" />
+                    <RowDefinition Height="AUTO" />
+                    <RowDefinition Height="AUTO" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="AUTO" />
+                </Grid.RowDefinitions>
+
+                <StackLayout Padding="0" Margin="0" HorizontalOptions="FillAndExpand" >
+                    <pancake:PancakeView
+                         CornerRadius="0,0,20,20">
+                        <Frame HeightRequest="250" BackgroundColor="HotPink" Padding="0" Margin="0">
+                            <Image Source="dogs" Aspect="AspectFill" Margin="0"/>
+                        </Frame>
+                    </pancake:PancakeView>
+                </StackLayout>
+                <StackLayout Padding="0" Margin="10,100,10,0" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                    <Frame  BackgroundColor="White" HeightRequest="450" WidthRequest="300" HasShadow="True" Padding="0" Margin="0" CornerRadius="20">
+
+                        <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                            <!-- profile image -->
+
+                            <Image Source="bookclub.png" Margin="0,0,0,-50" HeightRequest="100" WidthRequest="100" HorizontalOptions="Center" VerticalOptions="End"/>
+                            <!-- Profile Name -->
+                            <StackLayout Grid.Row="1" HorizontalOptions="Start" Padding="20,50,0,0">
+                                <Label HorizontalTextAlignment="Start" Text="Imię" Style="{StaticResource ProfileNameLabel}"/>
+                            </StackLayout>
+                            <StackLayout Grid.Row="1" HorizontalOptions="FillAndExpand" Padding="20,0,20,0">
+                                <Frame x:Name="NameFrame" BackgroundColor="Transparent" BorderColor="DarkGray" Padding="0" HorizontalOptions="Fill" WidthRequest="250" CornerRadius="30">
+                                    <StackLayout Orientation="Horizontal">
+                                        <Frame BackgroundColor="SkyBlue" HeightRequest="40" WidthRequest="40" CornerRadius="30" Padding="0" Margin="5">
+                                            <Image Source="avatar.png" Aspect="AspectFill" Margin="0"/>
+                                        </Frame>
+
+                                        <local:CustomEntry Placeholder="Imię" TextColor="{StaticResource Accent}" Text="{Binding Person.PersonName}" IsEnabled="False" FontAttributes="None" HorizontalOptions="FillAndExpand" Margin="0,0,20,0"/>
+                                    </StackLayout>
+                                </Frame>
+                            </StackLayout>
+
+                            <StackLayout Grid.Row="2" HorizontalOptions="Start" Padding="20,0,0,0">
+                                <Label HorizontalTextAlignment="Start" Text="Nazwisko" Style="{StaticResource ProfileNameLabel}"/>
+                            </StackLayout>
+                            <StackLayout Grid.Row="2" HorizontalOptions="FillAndExpand" Padding="20,0,20,0">
+                                <Frame x:Name="SurnameFrame" BackgroundColor="Transparent" BorderColor="DarkGray" Padding="0" HorizontalOptions="FillAndExpand" CornerRadius="30">
+                                    <StackLayout Orientation="Horizontal">
+                                        <Frame BackgroundColor="SkyBlue" HeightRequest="40" WidthRequest="40" CornerRadius="30" Padding="0" Margin="5">
+                                            <Image Source="avatar.png" Aspect="AspectFill" Margin="0"/>
+                                        </Frame>
+
+                                        <local:CustomEntry Placeholder="Nazwisko" TextColor="{StaticResource Accent}" Text="{Binding Person.PersonSurname}" IsEnabled="False" FontAttributes="None" HorizontalOptions="FillAndExpand" Margin="0,0,20,0"/>
+                                    </StackLayout>
+                                </Frame>
+                            </StackLayout>
+
+                                <!-- Social Stats Section -->
+                            <Grid Grid.Row="2" ColumnSpacing="0" RowSpacing="0" Margin="0,30">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                            </Grid>
+
+
+                            <!-- follow button -->
+                            <Button Grid.Row="4" Text="Zmień hasło" Margin="20,0,20,0" VerticalOptions="End" Command="{Binding ChangePasswordCommand}" Style="{StaticResource SettingsButton}"/>
+                            <Button Grid.Row="4" Text="Wyloguj" Margin="20,0,20,20" VerticalOptions="End" Command="{Binding LogoutCommand}" Style="{StaticResource FollowButton}"/>
+                        </StackLayout>
+                    </Frame>
+                </StackLayout>
+            </Grid>
+        </ScrollView>
+    </RefreshView>
+</ContentPage>

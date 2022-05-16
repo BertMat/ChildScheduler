@@ -1,0 +1,211 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<Application
+    x:Class="ChildScheduler.App"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:ChildScheduler"
+    xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:styles="clr-namespace:ChildScheduler.Styles">
+
+    <Application.Resources>
+        <ResourceDictionary>
+            <Color x:Key="Background">#E7E7EE</Color>
+            <Color x:Key="TabBarBackground">#FAF8FA</Color>
+            <Color x:Key="CardBackground">#FFFEFF</Color>
+            <Color x:Key="ButtonOutline">#686E7A</Color>
+            <Color x:Key="WorkoutBottomBackground">#F6F7FB</Color>
+            <Color x:Key="CardHeaderBackground">#F9F7FC</Color>
+            <Color x:Key="BlueAccent">#49679B</Color>
+
+            <Color x:Key="Accent">#FF344A</Color>
+            <Color x:Key="MoreInstructorBackground">#E5E7ED</Color>
+
+            <Color x:Key="TabIconSelected">#FF344A</Color>
+            <Color x:Key="TabIconUnselected">#2C2D31</Color>
+            <Color x:Key="TextSecondary">#606572</Color>
+            <Color x:Key="TextPrimary">#25272C</Color>
+            <Style x:Key="TabViewItemStyle" TargetType="xct:TabViewItem">
+                <Setter Property="TextColor" Value="{StaticResource TextSecondary}" />
+                <Setter Property="TextColorSelected" Value="{StaticResource Accent}" />
+            </Style>
+
+            <Color x:Key="HeaderTextColor">#585858</Color>
+            <Color x:Key="BodyTextColor">#C3C3C3</Color>
+            <Color x:Key="ButtonBackgroundColor">#5992FF</Color>
+            <!--  Colors  -->
+            <Color x:Key="PrimaryColor">#547799</Color>
+            <Color x:Key="PrimaryDarkColor">#172839</Color>
+            <Color x:Key="AccentColor">#5AC8FA</Color>
+            <Color x:Key="WindowBackgroundColor">#F5F5F5</Color>
+            <Color x:Key="WindowForegroundColor">#1E2222</Color>
+            <Color x:Key="TransparentWindowBackgroundColor">#98F5F5F5</Color>
+            <Color x:Key="LoadingBackgroundColor">#80000000</Color>
+            <Color x:Key="LoadingTextColor">White</Color>
+
+            <Color x:Key="SystemBlue">#007AFF</Color>
+            <Color x:Key="SystemGreen">#34C759</Color>
+            <Color x:Key="SystemIndigo">#5856D6</Color>
+            <Color x:Key="SystemOrange">#FF9500</Color>
+            <Color x:Key="SystemPink">#FF2D55</Color>
+            <Color x:Key="SystemPurple">#AF52DE</Color>
+            <Color x:Key="SystemRed">#FF3B30</Color>
+            <Color x:Key="SystemTeal">#5AC8FA</Color>
+            <Color x:Key="SystemYellow">#5AC8FA</Color>
+
+            <Color x:Key="SystemGray">#8E8E93</Color>
+            <Color x:Key="SystemGray2">#AEAEB2</Color>
+            <Color x:Key="SystemGray3">#C7C7CC</Color>
+            <Color x:Key="SystemGray4">#D1D1D6</Color>
+            <Color x:Key="SystemGray5">#E5E5EA</Color>
+            <Color x:Key="SystemGray6">#F2F2F7</Color>
+
+            <Color x:Key="FabBackgroundColor">#ffffff</Color>
+            <Color x:Key="SearchBackgroundColor">#ffffff</Color>
+            <Color x:Key="SearchTextColor">#5f6368</Color>
+
+            <Color x:Key="SeparatorColor">#757575</Color>
+            <Color x:Key="OpaqueSeparatorColor">#757575</Color>
+
+            <OnPlatform x:Key="RegularFontFamily" x:TypeArguments="x:String"
+            iOS="HelveticaNeue"
+            Android="sans-serif" />
+            <OnPlatform x:Key="LightFontFamily" x:TypeArguments="x:String"
+            iOS="HelveticaNeue-Light"
+            Android="sans-serif-light" />
+            <OnPlatform x:Key="MediumFontFamily" x:TypeArguments="x:String"
+            iOS="HelveticaNeue-Medium"
+            Android="sans-serif-medium" />
+
+            <!-- Styles -->
+            <Style x:Key="ProfileNameLabel" TargetType="Label">
+                <Setter Property="TextColor" Value="{StaticResource HeaderTextColor}" />
+            </Style>
+
+            <Style x:Key="ProfileTagLabel" TargetType="Label">
+                <Setter Property="TextColor" Value="{StaticResource BodyTextColor}" />
+            </Style>
+
+            <Style x:Key="StatsNumberLabel" TargetType="Label">
+                <Setter Property="TextColor" Value="{StaticResource HeaderTextColor}" />
+                <Setter Property="HorizontalTextAlignment" Value="Center"/>
+            </Style>
+
+            <Style x:Key="StatsCaptionLabel" TargetType="Label">
+                <Setter Property="TextColor" Value="{StaticResource BodyTextColor}" />
+                <Setter Property="Margin" Value="0,-5,0,0"/>
+                <Setter Property="HorizontalTextAlignment" Value="Center"/>
+            </Style>
+
+            <Style x:Key="MainBodyLabel" TargetType="Label">
+                <Setter Property="TextColor" Value="{StaticResource BodyTextColor}" />
+            </Style>
+
+            <Style x:Key="FollowButton" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{StaticResource ButtonBackgroundColor}"/>
+                <Setter Property="TextColor" Value="White"/>
+                <Setter Property="HeightRequest" Value="40"/>
+                <Setter Property="BorderRadius" Value="20"/>
+            </Style>
+            <Style x:Key="SettingsButton" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{StaticResource SystemGreen}"/>
+                <Setter Property="TextColor" Value="White"/>
+                <Setter Property="HeightRequest" Value="40"/>
+                <Setter Property="BorderRadius" Value="20"/>
+            </Style>
+
+            <Style x:Key="FrameCardViewStyle" TargetType="Frame">
+                <Setter Property="CornerRadius" Value="5" />
+                <Setter Property="Margin" Value="5" />
+                <Setter Property="Padding" Value="5" />
+                <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+                <Setter Property="OutlineColor" Value="LightGray" />
+                <Setter Property="BorderColor" Value="LightGray" />
+                <Setter Property="HasShadow" Value="True" />
+            </Style>
+
+            <Style x:Key="itemsCardViewStackLayoutStyle" TargetType="StackLayout">
+                <Setter Property="Margin" Value="5" />
+                <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+                <Setter Property="Spacing" Value="8" />
+            </Style>
+
+            <Style x:Key="itemsInsideCardViewStackLayoutStyle" TargetType="StackLayout">
+                <Setter Property="Orientation" Value="Horizontal" />
+                <Setter Property="Spacing" Value="8" />
+            </Style>
+
+            <Style x:Key="detailsStackLayout" TargetType="StackLayout">
+                <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+                <Setter Property="VerticalOptions" Value="FillAndExpand" />
+                <Setter Property="Spacing" Value="2" />
+            </Style>
+
+            <Style x:Key="NameLabel" TargetType="Label">
+                <Setter Property="FontSize" Value="18" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="TextColor" Value="Black" />
+            </Style>
+            
+
+
+
+            <!--  Shell  -->
+            <Color x:Key="ShellTabBarBackgroundColor">#F5F5F5</Color>
+
+            <!--  Frame  -->
+            <Color x:Key="FrameBackgroundColor">#FFFFFF</Color>
+            <Color x:Key="FrameBorderColor">Default</Color>
+
+            <!--  Entry  -->
+            <Color x:Key="EntryBackgroundColor">#FFFFFF</Color>
+
+            <!--  RefreshView  -->
+            <Color x:Key="RefreshViewBackgroundColor">White</Color>
+
+            <!--  Icons  -->
+            <x:String x:Key="IconSettings">&#xf493;</x:String>
+
+            <x:String x:Key="IconSave">&#xf193;</x:String>
+            <x:String x:Key="IconEdit">&#xfda5;</x:String>
+            <x:String x:Key="IconDelete">&#xf1c0;</x:String>
+            <x:String x:Key="IconAdd">&#xf415;</x:String>
+            <x:String x:Key="IconRefresh">&#xf450;</x:String>
+            <x:String x:Key="IconDirections">&#xf1d0;</x:String>
+            <x:String x:Key="IconPhone">&#xf3f2;</x:String>
+            <x:String x:Key="IconEmail">&#xf1ee;</x:String>
+            <x:String x:Key="IconSms">&#xf369;</x:String>
+
+            <x:String x:Key="IconPerson">&#xf004;</x:String>
+            <x:String x:Key="IconEmployment">&#xf990;</x:String>
+            <x:String x:Key="IconAddress">&#xf34d;</x:String>
+
+
+            <x:Int32 x:Key="CloseButtonBorderWidth">0</x:Int32>
+
+            <x:Int32 x:Key="BlogSpan">1</x:Int32>
+            <x:Int32 x:Key="VideoSpan">1</x:Int32>
+
+            
+            <ControlTemplate x:Key="TabItemTemplate">
+                <Grid RowSpacing="0" VerticalOptions="Center"
+                      RowDefinitions="Auto,Auto">
+                    <Image
+                        Grid.Row="0"
+                        Margin="6"
+                        HeightRequest="36"
+                        HorizontalOptions="Center"
+                        Source="{TemplateBinding CurrentIcon}"
+                        VerticalOptions="Center"
+                        WidthRequest="36" />
+                    <Label
+                        Grid.Row="1"
+                        FontSize="{TemplateBinding FontSize}"
+                        HorizontalOptions="Center"
+                        Text="{TemplateBinding Text}"
+                        TextColor="{TemplateBinding CurrentTextColor}" />
+                </Grid>
+            </ControlTemplate>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

@@ -1,0 +1,213 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    x:Class="ChildScheduler.Views.Contacts.DetailPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converters="clr-namespace:ChildScheduler.Converters"
+    xmlns:helpers="clr-namespace:ChildScheduler.Helpers"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:pancakeview="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:viewmodels="clr-namespace:ChildScheduler.ViewModels"
+    xmlns:models="clr-namespace:ChildScheduler.Models"
+    Title="{Binding Contact.DisplayName}"
+    BackgroundColor="{DynamicResource WindowBackgroundColor}"
+    NavigationPage.BackButtonTitle="Back"
+    NavigationPage.HasNavigationBar="True"
+    mc:Ignorable="d"
+    x:DataType="viewmodels:DetailViewModel">
+    <d:ContentPage.BindingContext>
+        <viewmodels:DetailViewModel />
+    </d:ContentPage.BindingContext>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:BooleanInverter x:Key="BooleanInverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
+            Command="{Binding DeleteCommand}"
+            Text="Delete">
+            <ToolbarItem.IconImageSource>
+                <FontImageSource
+                        FontFamily="{DynamicResource MaterialFontFamily}"
+                        Glyph="{StaticResource IconDelete}"/>
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+        <ToolbarItem
+            Command="{Binding EditCommand}"
+            Text="Edit">
+            <ToolbarItem.IconImageSource>
+                <FontImageSource
+                        FontFamily="{DynamicResource MaterialFontFamily}"
+                        Glyph="{x:Static helpers:FAIcons.Map}"/>
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+
+    <Grid RowSpacing="12">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <pancakeview:PancakeView
+            CornerRadius="15,15,15,15"
+            BackgroundColor="White"
+            Margin="0,12,0,0"
+            HeightRequest="60"
+            HorizontalOptions="Center"
+            IsClippedToBounds="True"
+            Style="{DynamicResource PancakeStyle}"
+            VerticalOptions="Center"
+            WidthRequest="50">
+            <Image Aspect="AspectFill">
+                <Image.Source>
+                    <FontImageSource
+                            FontFamily="FASolid"
+                            Glyph="{x:Static helpers:FAIcons.User}"
+                            Color="Purple" />
+                </Image.Source>
+            </Image>
+        </pancakeview:PancakeView>
+
+        <StackLayout Grid.Column="1" >
+            <StackLayout
+                Padding="0,12,0,0"
+                BindingContext="{Binding Contact}"
+                Spacing="0">
+            </StackLayout>
+
+            <Label BindingContext="{Binding Contact}" Style="{DynamicResource MicroLabelStyle}">
+                <Label.FormattedText>
+                    <FormattedString x:DataType="models:Contact">
+                        <Span Text="{Binding DisplayFullName}" FontAttributes="Bold"/>
+                        <Span Text="&#x0a;"/>
+                        <Span Text="{Binding Street}"/>
+                        <Span Text="&#x0a;"/>
+                        <Span Text="{Binding City}"/>
+                        <Span Text=", "/>
+                        <Span Text="{Binding StatePostal}"/>
+                        <Span Text="&#x0a;"/>
+                        <Span Text="{Binding PhoneNumber}"/>
+                        <Span Text="&#x0a;"/>
+                        <Span Text="{Binding Email}"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+
+
+
+
+        </StackLayout>
+
+        <StackLayout
+            HorizontalOptions="Center"
+            Orientation="Horizontal"
+            Spacing="24"
+            Grid.Row="1"
+            Grid.ColumnSpan="2">
+            <ImageButton
+                Command="{Binding GetDirectionsCommand}"
+                CommandParameter="{Binding Contact}"
+                BackgroundColor="Transparent"
+                VerticalOptions="Center">
+                <ImageButton.Source>
+                    <FontImageSource
+                        FontFamily="FASolid"
+                        Glyph="{x:Static helpers:FAIcons.MapSigns}"
+                        Color="{DynamicResource PrimaryColor}" />
+                </ImageButton.Source>
+            </ImageButton>
+            <ImageButton
+                Padding="8"
+                Command="{Binding MessageNumberCommand}"
+                CommandParameter="{Binding Contact.PhoneNumber}"
+                BackgroundColor="Transparent"
+                VerticalOptions="Center">
+                <ImageButton.Source>
+                    <FontImageSource
+                        FontFamily="FASolid"
+                        Glyph="{x:Static helpers:FAIcons.Sms}"
+                        Color="{DynamicResource PrimaryColor}" />
+                </ImageButton.Source>
+            </ImageButton>
+            <ImageButton
+                Padding="6"
+                Command="{Binding DialNumberCommand}"
+                CommandParameter="{Binding Contact.PhoneNumber}"
+                BackgroundColor="Transparent"
+                VerticalOptions="Center">
+                <ImageButton.Source>
+                    <FontImageSource
+                        FontFamily="FASolid"
+                        Glyph="{x:Static helpers:FAIcons.Phone}"
+                        Color="{DynamicResource PrimaryColor}" />
+                </ImageButton.Source>
+            </ImageButton>
+            <ImageButton
+                Padding="6"
+                Command="{Binding EmailCommand}"
+                CommandParameter="{Binding Contact.Email}"
+                BackgroundColor="Transparent">
+                <ImageButton.Source>
+                    <FontImageSource
+                        FontFamily="FASolid"
+                        Glyph="{x:Static helpers:FAIcons.Envelope}"
+                        Color="{DynamicResource PrimaryColor}" />
+                </ImageButton.Source>
+            </ImageButton>
+            <ImageButton
+                Padding="6"
+                Command="{Binding EmailCommand}"
+                CommandParameter="{Binding Contact.Email}"
+                BackgroundColor="Transparent">
+                <ImageButton.Source>
+                    <FontImageSource
+                        FontFamily="FASolid"
+                        Glyph="{x:Static helpers:FAIcons.Users}"
+                        Color="{DynamicResource PrimaryColor}" />
+                </ImageButton.Source>
+            </ImageButton>
+        </StackLayout>
+
+        <Grid Grid.Row="2" Grid.ColumnSpan="2">
+
+            <Frame
+                Margin="16"
+                Style="{DynamicResource FrameStyle}"
+                VerticalOptions="Center">
+                <StackLayout Spacing="20">
+                    <Label
+                        Style="{DynamicResource SmallLabelStyle}"
+                        Text="No map is available because this person does not have an address."
+                        VerticalTextAlignment="Center" />
+                    <Label
+                        Style="{DynamicResource SmallLabelStyle}"
+                        Text="Enter an address on the edit screen to see this person's location on a map."
+                        VerticalTextAlignment="Center" />
+                </StackLayout>
+            </Frame>
+            <AbsoluteLayout
+                AbsoluteLayout.LayoutBounds="0, 0, 1.0, 1.0"
+                AbsoluteLayout.LayoutFlags="All">
+                <ActivityIndicator
+                    AbsoluteLayout.LayoutBounds="0.5, 0.5, 0.2, AutoSize"
+                    AbsoluteLayout.LayoutFlags="PositionProportional, WidthProportional"
+                    IsRunning="{Binding IsBusy}"
+                    IsVisible="{Binding IsBusy}" />
+                <maps:Map
+                    x:Name="MyContactsMap"
+                    IsShowingUser="True"
+                    AbsoluteLayout.LayoutBounds="0, 0, 1.0, 1.0"
+                    AbsoluteLayout.LayoutFlags="All"
+                    IsVisible="true" />
+            </AbsoluteLayout>
+        </Grid>
+    </Grid>
+</ContentPage>

@@ -1,0 +1,161 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+            xmlns:viewmodels="clr-namespace:ChildScheduler.ViewModels.Events"
+            xmlns:pv="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+            xmlns:models="clr-namespace:ChildScheduler.Models"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:extensions="http://xamarin.com/schemas/2020/toolkit"
+             x:Class="ChildScheduler.Views.Events.EventListPage">
+    <ContentPage.BindingContext>
+        <viewmodels:EventListViewModel></viewmodels:EventListViewModel>
+    </ContentPage.BindingContext>
+    <StackLayout>
+        <StackLayout Padding="0" Margin="10,10,10,0" HorizontalOptions="CenterAndExpand" VerticalOptions="StartAndExpand">
+            <Frame  BackgroundColor="White" HeightRequest="100" WidthRequest="400" HasShadow="True" Padding="0" Margin="0" CornerRadius="20">
+
+                <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+
+                    <StackLayout Padding="0" Margin="15,10">
+
+                        <StackLayout>
+                            <!-- CATEGORIES -->
+                            <Label Text="Miesiąc:"></Label>
+                            <DatePicker x:Name="CategoriesListPicker"
+                                        Date="{Binding SelectedMonth }"
+                                        Format="MMMM"
+                                        TextTransform="Uppercase"
+                                        DateSelected="CategoriesListPicker_DateSelected"
+                                        />
+                            <!-- CATEGORIES -->
+
+                        </StackLayout>
+                    </StackLayout>
+                </StackLayout>
+
+            </Frame>
+
+            <Frame
+                Padding="0"
+                CornerRadius="6"
+                HasShadow="False">
+                <Grid RowDefinitions="Auto,Auto,Auto">
+
+                    <Grid BackgroundColor="{StaticResource CardHeaderBackground}">
+                        <StackLayout
+                            Padding="0,16"
+                            HorizontalOptions="Center"
+                            Orientation="Horizontal"
+                            Spacing="2">
+
+                            <Label
+                                FontSize="Medium"
+                                Text="Wydarzenia"
+                                TextColor="{StaticResource TextPrimary}" />
+                        </StackLayout>
+                    </Grid>
+
+
+                    <Grid
+                        Grid.Row="1"
+                        Padding="8"
+                        ColumnDefinitions="*,Auto,Auto"
+                        RowDefinitions="Auto"
+                            BackgroundColor="White"
+                        RowSpacing="10"
+                        HeightRequest="400">
+                        <CollectionView Grid.Row="1" Margin="5" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+                                        BackgroundColor="White"
+                        SelectionMode="None" ItemsSource="{Binding Events}">
+                            <CollectionView.ItemsLayout>
+                                <LinearItemsLayout Orientation="Vertical" ItemSpacing="20"/>
+                            </CollectionView.ItemsLayout>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <pv:PancakeView BackgroundColor="White" VerticalOptions="StartAndExpand" 
+                                    HorizontalOptions="FillAndExpand" Shadow="{pv:ShadowMarkup Color=Black, Offset='10,10'}">
+                                        <Grid VerticalOptions="StartAndExpand" HorizontalOptions="FillAndExpand" >
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <BoxView BackgroundColor="Red" WidthRequest="3" HorizontalOptions="Start"
+                                     VerticalOptions="FillAndExpand"/>
+                                            <extensions:Expander Grid.Column="1">
+                                                <extensions:Expander.Header>
+                                                    <Grid HorizontalOptions="FillAndExpand">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="*"/>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                            <ColumnDefinition Width="3.5*"/>
+                                                        </Grid.ColumnDefinitions>
+                                                        <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                                                            <Label Text="{Binding StartDate, StringFormat='{0:dd}'}" x:DataType="models:Event" TextColor="Black" FontSize="27"
+                                                   HorizontalOptions="Center">
+                                                            </Label>
+                                                            <Label Text="{Binding StartDate, StringFormat='{0:MMMM}'}" x:DataType="models:Event" TextColor="Black" FontSize="10" 
+                                                   HorizontalOptions="Center" Margin="0,-10,0,0"/>
+                                                        </StackLayout>
+                                                        <BoxView Grid.Column="1" BackgroundColor="Gray" WidthRequest="1" HorizontalOptions="Start" 
+                                                 VerticalOptions="FillAndExpand"/>
+                                                        <StackLayout Grid.Column="2" HorizontalOptions="Start" VerticalOptions="Center" Margin="20"
+                                    x:DataType="models:Event">
+                                                            
+                                                            <Label Text="{Binding EventName}" TextColor="Black" FontSize="15"/>
+                                                            <Label TextColor="#2F3246" FontSize="12" Margin="0,-10,0,0">
+                                                                <Label.FormattedText>
+                                                                    <FormattedString>
+                                                                        <FormattedString.Spans>
+                                                                            <Span Text="{Binding StartDate, StringFormat='{0:HH\\:mm}'}" />
+                                                                        </FormattedString.Spans>
+                                                                    </FormattedString>
+                                                                </Label.FormattedText>
+                                                            </Label>
+                                                        </StackLayout>
+                                                    </Grid>
+                                                </extensions:Expander.Header>
+                                                <Grid HorizontalOptions="FillAndExpand">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*"/>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                        <ColumnDefinition Width="3.5*"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <BoxView Grid.Column="1" BackgroundColor="#F2F4F8" WidthRequest="1" HorizontalOptions="Start" 
+                                             VerticalOptions="FillAndExpand"/>
+                                                    <StackLayout Grid.Column="2" Spacing="10">
+                                                        <Label Text="Opis" TextColor="Black" Opacity="0.5" FontSize="10" Margin="20,0"/>
+                                                        <StackLayout HorizontalOptions="Start" VerticalOptions="Center" Margin="20,0,0,20">
+                                                            <BindableLayout.ItemTemplate>
+                                                                <DataTemplate
+                                                                            x:DataType="models:Event"
+                                                                        >
+                                                                    <Label TextColor="#2F3246" FontSize="12">
+                                                                        <Label.FormattedText>
+                                                                            <FormattedString>
+                                                                                <FormattedString.Spans>
+                                                                                    <Span Text="{Binding EventDescription}"/>
+                                                                                </FormattedString.Spans>
+                                                                            </FormattedString>
+                                                                        </Label.FormattedText>
+                                                                    </Label>
+                                                                </DataTemplate>
+                                                            </BindableLayout.ItemTemplate>
+                                                        </StackLayout>
+                                                    </StackLayout>
+                                                </Grid>
+                                            </extensions:Expander>
+                                        </Grid>
+                                    </pv:PancakeView>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+
+
+                    </Grid>
+
+                </Grid>
+            </Frame>
+        </StackLayout>
+    </StackLayout>
+</ContentPage>

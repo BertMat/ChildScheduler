@@ -1,0 +1,559 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="ChildScheduler.Views.Families.FamilyPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:helpers="clr-namespace:ChildScheduler.Helpers"
+    xmlns:pv="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:models="clr-namespace:ChildScheduler.Models"
+    xmlns:extensions="http://xamarin.com/schemas/2020/toolkit"
+    xmlns:viewmodels="clr-namespace:ChildScheduler.ViewModels.Families"
+    x:DataType="viewmodels:FamilyViewModel"
+    BackgroundColor="{StaticResource Background}"
+    NavigationPage.HasNavigationBar="False">
+    <ContentPage.BindingContext>
+        <viewmodels:FamilyViewModel />
+    </ContentPage.BindingContext>
+    <RefreshView
+            Command="{Binding RefreshCommand}"
+            IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+            RefreshColor="Red">
+        <ScrollView>
+            <StackLayout Padding="8">
+                <Frame
+                Padding="0,12"
+                CornerRadius="6"
+                HasShadow="False">
+                    <Grid>
+                        <StackLayout Orientation="Horizontal">
+                            <Label
+                                Margin="0,0,10,0"
+                                FontFamily="FARegular"
+                                FontSize="Large"
+                                HorizontalOptions="EndAndExpand"
+                                Text="{x:Static helpers:FAIcons.Edit}"
+                                TextColor="{StaticResource TextSecondary}"
+                                VerticalOptions="Start" />
+
+                        </StackLayout>
+                        <StackLayout>
+                            <Label
+                            Margin="0,8"
+                            FontSize="Title"
+                            HorizontalOptions="Center"
+                            Text="{Binding Family.FamilyName}"
+                            TextColor="{StaticResource TextPrimary}" />
+
+                            <Button
+                            Margin="0,4,0,16"
+                            Padding="40,0"
+                            BackgroundColor="Transparent"
+                            BorderColor="{StaticResource Background}"
+                            BorderWidth="1"
+                            CornerRadius="20"
+                            Command="{Binding CreateFamilyCommand}"
+                            HeightRequest="40"
+                            HorizontalOptions="Center"
+                            Text="{Binding ButtonTitle}" />
+
+
+                        </StackLayout>
+                    </Grid>
+                </Frame>
+
+                <Frame
+                Padding="0"
+                CornerRadius="6"
+                HasShadow="False">
+                    <Grid RowDefinitions="Auto,Auto,Auto">
+
+                        <Grid BackgroundColor="{StaticResource CardHeaderBackground}">
+                            <StackLayout
+                            Padding="0,16"
+                            HorizontalOptions="Center"
+                            Orientation="Horizontal"
+                            Spacing="2">
+
+                                <Label
+                                FontSize="Medium"
+                                Text="Najbliższe wydarzenia"
+                                TextColor="{StaticResource TextPrimary}" />
+                            </StackLayout>
+                        </Grid>
+
+
+                        <Grid
+                        Grid.Row="1"
+                        Padding="8"
+                        ColumnDefinitions="*,Auto,Auto"
+                        RowDefinitions="Auto"
+                            BackgroundColor="White"
+                        RowSpacing="10"
+                            HeightRequest="150">
+                        <CollectionView Grid.Row="1" Margin="5" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+                                        BackgroundColor="White"
+                        SelectionMode="None" ItemsSource="{Binding Events}">
+                                <CollectionView.ItemsLayout>
+                                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="20"/>
+                                </CollectionView.ItemsLayout>
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate
+                                    x:DataType="models:Event">
+                                        <pv:PancakeView BackgroundColor="White" VerticalOptions="StartAndExpand" 
+                                    HorizontalOptions="FillAndExpand" Shadow="{pv:ShadowMarkup Color=Black, Offset='10,10'}">
+                                            <Grid VerticalOptions="StartAndExpand" HorizontalOptions="FillAndExpand">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <BoxView BackgroundColor="Red" WidthRequest="3" HorizontalOptions="Start"
+                                     VerticalOptions="FillAndExpand"/>
+                                                <extensions:Expander Grid.Column="1">
+                                                    <extensions:Expander.Header>
+                                                        <Grid HorizontalOptions="FillAndExpand">
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="*"/>
+                                                                <ColumnDefinition Width="Auto"/>
+                                                                <ColumnDefinition Width="3.5*"/>
+                                                            </Grid.ColumnDefinitions>
+                                                            <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                                                                <Label Text="{Binding StartDate, StringFormat='{0:dd}'}" TextColor="Black" FontSize="27" 
+                                                   HorizontalOptions="Center"/>
+                                                                <Label Text="{Binding StartDate, StringFormat='{0:MMMM}'}" TextColor="Black" FontSize="10" 
+                                                   HorizontalOptions="Center" Margin="0,-10,0,0"/>
+                                                            </StackLayout>
+                                                            <BoxView Grid.Column="1" BackgroundColor="#F2F4F8" WidthRequest="1" HorizontalOptions="Start" 
+                                                 VerticalOptions="FillAndExpand"/>
+                                                            <StackLayout Grid.Column="2" HorizontalOptions="Start" VerticalOptions="Center" Margin="20">
+                                                                <Label Text="{Binding EventName}" TextColor="Black" FontSize="15"/>
+                                                                <Label TextColor="#2F3246" FontSize="12" Margin="0,-10,0,0">
+                                                                    <Label.FormattedText>
+                                                                        <FormattedString>
+                                                                            <FormattedString.Spans>
+                                                                                <Span Text="{Binding StartDate, StringFormat='{0:HH\\:mm}'}" />
+                                                                                <Span Text=" - "/>
+                                                                                <Span Text="{Binding EndDate, StringFormat='{0:HH\\:mm}'}" />
+                                                                            </FormattedString.Spans>
+                                                                        </FormattedString>
+                                                                    </Label.FormattedText>
+                                                                </Label>
+                                                            </StackLayout>
+                                                        </Grid>
+                                                    </extensions:Expander.Header>
+                                                    <Grid HorizontalOptions="FillAndExpand">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="*"/>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                            <ColumnDefinition Width="3.5*"/>
+                                                        </Grid.ColumnDefinitions>
+                                                        <BoxView Grid.Column="1" BackgroundColor="#F2F4F8" WidthRequest="1" HorizontalOptions="Start" 
+                                             VerticalOptions="FillAndExpand"/>
+                                                        <StackLayout Grid.Column="2" Spacing="10">
+                                                            <Label Text="Opis" TextColor="Black" Opacity="0.5" FontSize="10" Margin="20,0"/>
+                                                            <StackLayout HorizontalOptions="Start" VerticalOptions="Center" Margin="20,0,0,20">
+                                                                <BindableLayout.ItemTemplate>
+                                                                    <DataTemplate
+                                                                        >
+                                                                        <Label TextColor="#2F3246" FontSize="12">
+                                                                            <Label.FormattedText>
+                                                                                <FormattedString>
+                                                                                    <FormattedString.Spans>
+                                                                                        <Span Text="{Binding EventDescription}"/>
+                                                                                    </FormattedString.Spans>
+                                                                                </FormattedString>
+                                                                            </Label.FormattedText>
+                                                                        </Label>
+                                                                    </DataTemplate>
+                                                                </BindableLayout.ItemTemplate>
+                                                            </StackLayout>
+                                                        </StackLayout>
+                                                    </Grid>
+                                                </extensions:Expander>
+                                            </Grid>
+                                        </pv:PancakeView>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+
+
+                        </Grid>
+
+                        <Grid
+                        Grid.Row="2"
+                        BackgroundColor="{StaticResource CardHeaderBackground}"
+                        ColumnDefinitions="*,*,*">
+                            <StackLayout
+                            Padding="0,16"
+                            HorizontalOptions="Center"
+                            Orientation="Horizontal"
+                            Spacing="8">
+
+                                <Label
+                                FontSize="36"
+                                Text="{Binding SelectedAmount, Mode=TwoWay}"
+                                TextColor="{StaticResource TextPrimary}" />
+
+                                <Label
+                                FontSize="Micro"
+                                Text="Liczba&#10;wydarzeń"
+                                TextColor="{StaticResource TextSecondary}"
+                                VerticalOptions="Center" />
+
+                            </StackLayout>
+                            <StackLayout
+                            Grid.Column="1"
+                            Padding="0,16"
+                            HorizontalOptions="Center"
+                            Orientation="Horizontal"
+                            Spacing="8">
+
+                                <Frame
+                                Padding="0"
+                                CornerRadius="20"
+                                HasShadow="False"
+                                HeightRequest="40"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center"
+                                WidthRequest="40">
+                                    <Label
+                                    FontFamily="FASolid"
+                                    FontSize="Medium"
+                                    HorizontalOptions="Center"
+                                    Text="{x:Static helpers:FAIcons.ArrowDown}"
+                                    TextColor="{StaticResource TextPrimary}"
+                                    VerticalOptions="Center" />
+                                </Frame>
+                                <Label FontSize="Micro" VerticalOptions="Center">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{Binding LeftDaysTillMonthEnd}" TextColor="Black" />
+                                            <Span Text=" dni&#10;do końca" TextColor="{StaticResource TextSecondary}" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                            </StackLayout>
+                            <StackLayout
+                            Grid.Column="2"
+                            Padding="0,16"
+                            HorizontalOptions="Center"
+                            Orientation="Horizontal"
+                            Spacing="8">
+
+                                <Label
+                                FontSize="36"
+                                Text="{Binding DoneTasksInMonth}"
+                                TextColor="{StaticResource TextPrimary}" />
+                                <Label
+                                FontSize="Micro"
+                                Text="zrealizowanych&#10;zadań"
+                                TextColor="{StaticResource TextSecondary}"
+                                VerticalOptions="Center" />
+
+                            </StackLayout>
+                        </Grid>
+                    </Grid>
+                </Frame>
+
+                <Frame
+                Padding="0"
+                CornerRadius="6"
+                HasShadow="False">
+                    <Grid RowDefinitions="Auto">
+
+                        <Grid BackgroundColor="{StaticResource CardHeaderBackground}">
+                            <StackLayout
+                            Padding="0,16"
+                            HorizontalOptions="Center"
+                            Orientation="Horizontal"
+                            Spacing="8">
+
+                                <Label
+                                FontSize="Medium"
+                                Text="Placówki edukacyjne"
+                                TextColor="{StaticResource TextPrimary}" />
+                            </StackLayout>
+
+                            <Label
+                            Margin="0,0,50,0"
+                            FontFamily="FASolid"
+                            FontSize="Medium"
+                            HorizontalOptions="End"
+                            Text="{x:Static helpers:FAIcons.GripLines}"
+                            VerticalOptions="Center">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding ShowEducInstitutionsCommand}"></TapGestureRecognizer>
+                                </Label.GestureRecognizers>
+                            </Label>
+                            <Label
+                            Margin="0,0,16,0"
+                            FontFamily="FASolid"
+                            FontSize="Medium"
+                            HorizontalOptions="End"
+                            Text="{x:Static helpers:FAIcons.Plus}"
+                            VerticalOptions="Center">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding AddEducIntitution}"></TapGestureRecognizer>
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </Grid>
+                        <StackLayout Grid.Row="1" Orientation="Horizontal"
+                                     IsVisible="{Binding EducationalInstVisible}"
+                                 HorizontalOptions="FillAndExpand"
+                                     HeightRequest="200"
+                                 Padding="24,24,24,12">
+                            <CollectionView x:Name="educationalList" 
+                                ItemsSource="{Binding EducationalInstitutions}"
+                                SelectionMode="Single"
+                                SelectionChanged="ItemSelected"
+                                EmptyView="Brak placówek w rodzinie"
+                                SelectionChangedCommand="{Binding OnSelectInstitutionCommand}"
+                                SelectedItem="{Binding SelectedEducationalInstitution}">
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate x:DataType="models:EducationalInstitution">
+                                        <StackLayout Spacing="8" HorizontalOptions="EndAndExpand">
+                                            <Frame Style="{StaticResource FrameCardViewStyle}">
+                                                <StackLayout Style="{StaticResource itemsCardViewStackLayoutStyle}">
+                                                    <StackLayout Style="{StaticResource itemsInsideCardViewStackLayoutStyle}">
+                                                        <StackLayout Style="{StaticResource detailsStackLayout}">
+                                                            <Label Text="{Binding Name}" Style="{StaticResource NameLabel}" />
+                                                        </StackLayout>
+                                                    </StackLayout>
+                                                </StackLayout>
+                                            </Frame>
+                                        </StackLayout>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+
+                            </CollectionView>
+                        </StackLayout>
+
+                    </Grid>
+                </Frame>
+                <Frame
+                Padding="0"
+                CornerRadius="6"
+                HasShadow="False">
+                    <Grid RowDefinitions="Auto">
+
+                        <Grid BackgroundColor="{StaticResource CardHeaderBackground}">
+                            <StackLayout
+                            Padding="0,16"
+                            HorizontalOptions="Center"
+                            Orientation="Horizontal"
+                            Spacing="8">
+
+                                <Label
+                                FontSize="Medium"
+                                Text="Dzieci"
+                                TextColor="{StaticResource TextPrimary}" />
+                            </StackLayout>
+
+                            <Label
+                            Margin="0,0,50,0"
+                            FontFamily="FASolid"
+                            FontSize="Medium"
+                            HorizontalOptions="End"
+                            Text="{x:Static helpers:FAIcons.GripLines}"
+                            VerticalOptions="Center">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding ShowChildrenCommand}"></TapGestureRecognizer>
+                                </Label.GestureRecognizers>
+                            </Label>
+                            <Label
+                            Margin="0,0,16,0"
+                            FontFamily="FASolid"
+                            FontSize="Medium"
+                            HorizontalOptions="End"
+                            Text="{x:Static helpers:FAIcons.Plus}"
+                            VerticalOptions="Center">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding AddChild}"></TapGestureRecognizer>
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </Grid>
+                        <StackLayout Grid.Row="1" Orientation="Horizontal"
+                                     IsVisible="{Binding ChildrenVisible}"
+                                 HorizontalOptions="FillAndExpand"
+                                     HeightRequest="200"
+                                 Padding="24,24,24,12">
+                            <CollectionView x:Name="childrenList" 
+                                ItemsSource="{Binding Children}"
+                                SelectionMode="Single"
+                                SelectionChanged="ChildSelected"
+                                EmptyView="Brak dzieci w rodzinie"
+                                SelectedItem="{Binding SelectedChild}">
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate x:DataType="models:Child">
+                                        <StackLayout Spacing="8" HorizontalOptions="EndAndExpand">
+                                            <Frame Style="{StaticResource FrameCardViewStyle}">
+                                                <StackLayout Style="{StaticResource itemsCardViewStackLayoutStyle}">
+                                                    <StackLayout Style="{StaticResource itemsInsideCardViewStackLayoutStyle}">
+                                                        <StackLayout Style="{StaticResource detailsStackLayout}">
+                                                            <Label Text="{Binding ChildName}" Style="{StaticResource NameLabel}" />
+                                                        </StackLayout>
+                                                    </StackLayout>
+                                                </StackLayout>
+                                            </Frame>
+                                        </StackLayout>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+
+                            </CollectionView>
+                        </StackLayout>
+
+                    </Grid>
+                </Frame>
+                <Frame
+                Padding="0"
+                CornerRadius="6"
+                HasShadow="False">
+                    <Grid RowDefinitions="Auto">
+
+                        <Grid BackgroundColor="{StaticResource CardHeaderBackground}">
+                            <StackLayout
+                            Padding="0,16"
+                            HorizontalOptions="Center"
+                            Orientation="Horizontal"
+                            Spacing="8">
+
+                                <Label
+                                FontSize="Medium"
+                                Text="Kategorie"
+                                TextColor="{StaticResource TextPrimary}" />
+                            </StackLayout>
+
+                            <Label
+                            Margin="0,0,50,0"
+                            FontFamily="FASolid"
+                            FontSize="Medium"
+                            HorizontalOptions="End"
+                            Text="{x:Static helpers:FAIcons.GripLines}"
+                            VerticalOptions="Center">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding ShowCategoriesCommand}"></TapGestureRecognizer>
+                                </Label.GestureRecognizers>
+                            </Label>
+                            <Label
+                            Margin="0,0,16,0"
+                            FontFamily="FASolid"
+                            FontSize="Medium"
+                            HorizontalOptions="End"
+                            Text="{x:Static helpers:FAIcons.Plus}"
+                            VerticalOptions="Center">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding AddCategory}"></TapGestureRecognizer>
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </Grid>
+                        <StackLayout Grid.Row="1" Orientation="Horizontal"
+                                     IsVisible="{Binding CategoriesVisibile}"
+                                 HorizontalOptions="FillAndExpand"
+                                     HeightRequest="200"
+                                 Padding="24,24,24,12">
+                            <CollectionView x:Name="categoriesList" 
+                                ItemsSource="{Binding Categories}"
+                                SelectionMode="Single"
+                                EmptyView="Brak kategorii w rodzinie">
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate x:DataType="models:Category">
+                                        <StackLayout Spacing="8" HorizontalOptions="EndAndExpand">
+                                            <Frame Style="{StaticResource FrameCardViewStyle}">
+                                                <StackLayout Style="{StaticResource itemsCardViewStackLayoutStyle}">
+                                                    <StackLayout Style="{StaticResource itemsInsideCardViewStackLayoutStyle}">
+                                                        <StackLayout Style="{StaticResource detailsStackLayout}">
+                                                            <Label Text="{Binding CategoryName}" Style="{StaticResource NameLabel}" />
+                                                        </StackLayout>
+                                                    </StackLayout>
+                                                </StackLayout>
+                                            </Frame>
+                                        </StackLayout>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+
+                            </CollectionView>
+                        </StackLayout>
+
+                    </Grid>
+                </Frame>
+
+
+                <Frame
+                Padding="0"
+                CornerRadius="6"
+                HasShadow="False">
+                    <Grid RowDefinitions="Auto,Auto">
+
+                        <Grid BackgroundColor="{StaticResource CardHeaderBackground}">
+                            <StackLayout
+                            Padding="0,16"
+                            HorizontalOptions="Center"
+                            Orientation="Horizontal"
+                            Spacing="8">
+
+                                <Label
+                                FontSize="Medium"
+                                Text="Członkowie"
+                                TextColor="{StaticResource TextPrimary}" />
+
+                            </StackLayout>
+
+                            <Label
+                            Margin="0,0,50,0"
+                            FontFamily="FASolid"
+                            FontSize="Medium"
+                            HorizontalOptions="End"
+                            Text="{x:Static helpers:FAIcons.GripLines}"
+                            VerticalOptions="Center">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding ShowFamilyMembersCommand}"></TapGestureRecognizer>
+                                </Label.GestureRecognizers>
+                            </Label>
+                            <Label
+                            Margin="0,0,16,0"
+                            FontFamily="FASolid"
+                            FontSize="Medium"
+                            HorizontalOptions="End"
+                            Text="{x:Static helpers:FAIcons.Plus}"
+                            VerticalOptions="Center">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding AddFamilyMember}"></TapGestureRecognizer>
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </Grid>
+
+                        <StackLayout Grid.Row="1" Orientation="Horizontal"
+                                 HorizontalOptions="FillAndExpand"
+                                     HeightRequest="100"
+                                 Padding="24,24,24,12">
+                            <CollectionView x:Name="familyMembersList" 
+                                ItemsSource="{Binding FamilyMembers}"
+                                SelectionMode="Single"
+                                SelectedItem="{Binding SelectedPerson}"
+                                SelectionChanged="familyMembersList_SelectionChanged"
+                                EmptyView="Brak członków w rodzinie">
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate x:DataType="models:Person">
+                                        <StackLayout Spacing="8" HorizontalOptions="EndAndExpand">
+                                            <Frame Style="{StaticResource FrameCardViewStyle}">
+                                                <StackLayout Style="{StaticResource itemsCardViewStackLayoutStyle}">
+                                                    <StackLayout Style="{StaticResource itemsInsideCardViewStackLayoutStyle}">
+                                                        <StackLayout Style="{StaticResource detailsStackLayout}">
+                                                            <Label Text="{Binding DisplayFullName}" Style="{StaticResource NameLabel}" />
+                                                        </StackLayout>
+                                                    </StackLayout>
+                                                </StackLayout>
+                                            </Frame>
+                                        </StackLayout>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+
+                            </CollectionView>
+                        </StackLayout>
+
+
+                    </Grid>
+                </Frame>
+            </StackLayout>
+        </ScrollView>
+    </RefreshView>
+</ContentPage>

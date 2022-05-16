@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:renderers="clr-namespace:ChildScheduler.Renderers"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:local="clr-namespace:ChildScheduler.CustomRenderer"
+             mc:Ignorable="d"
+            xmlns:models="clr-namespace:ChildScheduler.Models"
+             x:Class="ChildScheduler.Views.People.CreateProfilePage"
+             xmlns:viewmodels="clr-namespace:ChildScheduler.ViewModels" x:DataType="viewmodels:CreateProfileViewModel"
+             NavigationPage.HasNavigationBar="False"
+             >
+    <ContentPage.BindingContext>
+        <viewmodels:CreateProfileViewModel />
+    </ContentPage.BindingContext>
+
+    <StackLayout>
+        <Grid>
+            <StackLayout Padding="0" Margin="0" HorizontalOptions="FillAndExpand">
+                <Frame HeightRequest="250" BackgroundColor="HotPink" Padding="0" Margin="0">
+                    <Image Source="login_bg.jpg" Aspect="AspectFill" Margin="0"/>
+                </Frame>
+            </StackLayout>
+
+            <StackLayout Padding="0" Margin="10,100,10,0" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                <Frame  BackgroundColor="White" HeightRequest="450" HasShadow="True" Padding="0" Margin="0" CornerRadius="20">
+
+                    <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                        <StackLayout Margin="10,20,10,10">
+                            <Label Text="TWORZENIE PROFILU" TextColor="Black" HorizontalOptions="CenterAndExpand" FontAttributes="Bold"/>
+                        </StackLayout>
+
+                        <StackLayout Padding="0" Margin="15,10">
+
+                            <StackLayout>
+                                <Frame x:Name="EmailFrame" BackgroundColor="Transparent" BorderColor="DarkGray" Padding="0" HorizontalOptions="FillAndExpand" CornerRadius="30">
+                                    <StackLayout Orientation="Horizontal">
+                                        <Frame BackgroundColor="SkyBlue" HeightRequest="40" WidthRequest="40" CornerRadius="30" Padding="0" Margin="5">
+                                            <Image Source="avatar.png" Aspect="AspectFill" Margin="0"/>
+                                        </Frame>
+
+                                        <local:CustomEntry Placeholder="Imię" TextColor="{StaticResource Accent}" Text="{Binding Person.PersonName}" FontAttributes="None" HorizontalOptions="FillAndExpand" Margin="0,0,20,0"/>
+                                    </StackLayout>
+                                </Frame>
+
+                                <Frame x:Name="PasswordFrame" BackgroundColor="Transparent" BorderColor="DarkGray" Margin="0,15,0,0" Padding="0" HorizontalOptions="FillAndExpand" CornerRadius="30">
+                                    <StackLayout Orientation="Horizontal">
+                                        <Frame BackgroundColor="SkyBlue" HeightRequest="40" WidthRequest="40" CornerRadius="30" Padding="0" Margin="5">
+                                            <Image Source="lock_icon_6813906.jpg" Aspect="AspectFill" Margin="0"/>
+                                        </Frame>
+
+                                        <local:CustomEntry Placeholder="Nazwisko" TextColor="{StaticResource Accent}" Text="{Binding Person.PersonSurname}" FontAttributes="None" HorizontalOptions="FillAndExpand" Margin="0,0,20,0"/>
+                                    </StackLayout>
+                                </Frame>
+
+                            </StackLayout>
+
+                            <Button x:Name="LoginButton" Text="ZATWIERDŹ" BackgroundColor="{StaticResource Accent}" Command="{Binding AcceptCommand}" TextColor="White" CornerRadius="30"/>
+
+                            <StackLayout Margin="0,25,0,0" Padding="0">
+                                <Grid>
+                                    <BoxView BackgroundColor="DarkGray" HeightRequest="1" WidthRequest="150"  HorizontalOptions="Center" VerticalOptions="Center"/>
+                                </Grid>
+                            </StackLayout>
+
+                        </StackLayout>
+
+
+                    </StackLayout>
+
+                </Frame>
+            </StackLayout>
+        </Grid>
+    </StackLayout>
+
+</ContentPage>

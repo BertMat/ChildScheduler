@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage 
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+    xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:local="clr-namespace:ChildScheduler.CustomRenderer"         
+    xmlns:views="clr-namespace:ChildScheduler.Views"
+    xmlns:viewmodels="clr-namespace:ChildScheduler.ViewModels.Popups" 
+    xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+    x:Class="ChildScheduler.Popups.AddNewChildPage">
+
+    <pages:PopupPage.BindingContext>
+        <viewmodels:AddNewChildViewModel />
+    </pages:PopupPage.BindingContext>
+    <!--You can set an animation in the xaml file or in the csharp code behind-->
+    <pages:PopupPage.Animation>
+        <animations:ScaleAnimation
+            PositionIn="Center"
+            PositionOut="Center"
+            ScaleIn="1.2"
+            ScaleOut="0.8"
+            DurationIn="400"
+            DurationOut="300"
+            EasingIn="SinOut"
+            EasingOut="SinIn"
+            HasBackgroundAnimation="True"/>
+    </pages:PopupPage.Animation>
+    <!--You can use any elements here which are extended from Xamarin.Forms.View-->
+    <StackLayout Padding="0" Margin="10,50,10,0" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+        <Frame  BackgroundColor="White" BorderColor="DarkGray" HeightRequest="450" WidthRequest="300" HasShadow="True" Padding="0" Margin="0" CornerRadius="20">
+
+            <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                <!-- profile image -->
+                <StackLayout>
+                    <Label HorizontalOptions="CenterAndExpand" Margin="0,20,0,0" Text="DZIECKO" FontAttributes="Bold"></Label>
+                    <BoxView Color="Gray" Margin="10,0,10,0" HeightRequest="2" HorizontalOptions="Fill" />
+                </StackLayout>
+                <!-- Profile Name -->
+                <StackLayout Grid.Row="1" HorizontalOptions="Start" Padding="20,0,0,0">
+                    <Label HorizontalTextAlignment="Start" Text="Imię" Style="{StaticResource ProfileNameLabel}"/>
+                </StackLayout>
+                <StackLayout Grid.Row="1" HorizontalOptions="FillAndExpand" Padding="20,0,20,0">
+                    <Frame x:Name="NameFrame" BackgroundColor="Transparent" BorderColor="DarkGray" Padding="0" HorizontalOptions="Fill" WidthRequest="250" CornerRadius="30">
+                        <StackLayout Orientation="Horizontal">
+                            <Frame BackgroundColor="SkyBlue" HeightRequest="40" WidthRequest="40" CornerRadius="30" Padding="0" Margin="5">
+                                <Image Source="lock_icon_6813906.jpg" Aspect="AspectFill" Margin="0"/>
+                            </Frame>
+
+                            <local:CustomEntry Placeholder="Imię" TextColor="{StaticResource Accent}" Text="{Binding Child.ChildName}" FontAttributes="None" HorizontalOptions="FillAndExpand" Margin="0,0,20,0"/>
+                        </StackLayout>
+                    </Frame>
+                </StackLayout>
+
+                <StackLayout Grid.Row="2" HorizontalOptions="Start" Padding="20,0,0,0">
+                    <Label HorizontalTextAlignment="Start" Text="Waga" Style="{StaticResource ProfileNameLabel}"/>
+                </StackLayout>
+                <StackLayout Grid.Row="2" HorizontalOptions="FillAndExpand" Padding="20,0,20,0">
+                    <Frame x:Name="WeightFrame" BackgroundColor="Transparent" BorderColor="DarkGray" Padding="0" HorizontalOptions="FillAndExpand" CornerRadius="30">
+                        <StackLayout Orientation="Horizontal">
+                            <Frame BackgroundColor="SkyBlue" HeightRequest="40" WidthRequest="40" CornerRadius="30" Padding="0" Margin="5">
+                                <Image Source="lock_icon_6813906.jpg" Aspect="AspectFill" Margin="0"/>
+                            </Frame>
+
+                            <local:CustomEntry Placeholder="Waga" TextColor="{StaticResource Accent}" Text="{Binding Child.Weight, StringFormat='{0:F0}'}" FontAttributes="None" HorizontalOptions="FillAndExpand" Margin="0,0,20,0"/>
+                        </StackLayout>
+                    </Frame>
+                </StackLayout>
+
+                <StackLayout Grid.Row="3" HorizontalOptions="Start" Padding="20,0,0,0">
+                    <Label HorizontalTextAlignment="Start" Text="Wzrost" Style="{StaticResource ProfileNameLabel}"/>
+                </StackLayout>
+                <StackLayout Grid.Row="3" HorizontalOptions="FillAndExpand" Padding="20,0,20,0">
+                    <Frame x:Name="HeightFrame" BackgroundColor="Transparent" BorderColor="DarkGray" Padding="0" HorizontalOptions="FillAndExpand" CornerRadius="30">
+                        <StackLayout Orientation="Horizontal">
+                            <Frame BackgroundColor="SkyBlue" HeightRequest="40" WidthRequest="40" CornerRadius="30" Padding="0" Margin="5">
+                                <Image Source="lock_icon_6813906.jpg" Aspect="AspectFill" Margin="0"/>
+                            </Frame>
+
+                            <local:CustomEntry Placeholder="Wzrost" TextColor="{StaticResource Accent}" Text="{Binding Child.Height, StringFormat='{0:F0}'}" FontAttributes="None" HorizontalOptions="FillAndExpand" Margin="0,0,20,0"/>
+                        </StackLayout>
+                    </Frame>
+                </StackLayout>
+
+                <StackLayout Grid.Row="4" HorizontalOptions="Start" Padding="20,0,0,0">
+                    <Label HorizontalTextAlignment="Start" Text="Data urodzenia" Style="{StaticResource ProfileNameLabel}"/>
+                </StackLayout>
+                <StackLayout Grid.Row="4" HorizontalOptions="FillAndExpand" Padding="20,0,20,0">
+                    <Frame x:Name="BirthDateFrame" BackgroundColor="Transparent" BorderColor="DarkGray" Padding="0" HorizontalOptions="FillAndExpand" CornerRadius="30">
+                        <StackLayout Orientation="Horizontal">
+                            <Frame BackgroundColor="SkyBlue" HeightRequest="40" WidthRequest="40" CornerRadius="30" Padding="0" Margin="5">
+                                <Image Source="lock_icon_6813906.jpg" Aspect="AspectFill" Margin="0"/>
+                            </Frame>
+
+                            <DatePicker TextColor="{StaticResource Accent}" Date="{Binding Child.BirthDate}" FontAttributes="None" HorizontalOptions="FillAndExpand" Margin="0,0,20,0"/>
+                        </StackLayout>
+                    </Frame>
+                    <BoxView Color="Gray" Margin="10,0,10,0" HeightRequest="2" HorizontalOptions="Fill" />
+                </StackLayout>
+
+
+                <!-- follow button -->
+                <Grid Grid.Row="5" Padding="20,0,20,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="0" Text="Cofnij" Margin="20,0,20,0" HorizontalOptions="Start" VerticalOptions="Start" Command="{Binding PopupCommand}" Style="{StaticResource FollowButton}">
+                    </Button>
+                    <views:ButtonWithActivityIndicator x:Name="ButtonWithSpinner" Grid.Column="1" Clicked="OnClicked" Text="{Binding ButtonName}" Margin="20,0,20,0" ActivityIndicatorColor="White" ButtonColor="Green" HorizontalOptions="End" Command="{Binding AddNewChildCommand}" />
+                </Grid>
+                
+            </StackLayout>
+        </Frame>
+    </StackLayout>
+</pages:PopupPage>

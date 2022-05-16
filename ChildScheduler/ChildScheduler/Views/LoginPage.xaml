@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"             
+             xmlns:local="clr-namespace:ChildScheduler.Views"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:viewmodels="clr-namespace:ChildScheduler.ViewModels" x:DataType="viewmodels:LoginViewModel"
+             mc:Ignorable="d"
+            xmlns:models="clr-namespace:ChildScheduler.Models"
+             x:Class="ChildScheduler.Views.LoginPage">
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="#e6e6e6">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <StackLayout Padding="0" Margin="0" HorizontalOptions="FillAndExpand">
+                    <Frame HeightRequest="150" BackgroundColor="DarkOrange" Padding="0" Margin="0">
+                        <Image x:Name="resourceImage" Aspect="AspectFill" Margin="0"/>
+                    </Frame>
+                </StackLayout>
+                <StackLayout Padding="0" Margin="10,100,10,0" HorizontalOptions="FillAndExpand">
+                    <Frame BackgroundColor="White" HeightRequest="450" HasShadow="True" Padding="0" Margin="0" CornerRadius="20">
+
+                        <StackLayout>
+                            <StackLayout>
+                                <StackLayout Margin="10,15,10,10">
+                                <Label Text="LOGOWANIE" TextColor="Black" HorizontalOptions="CenterAndExpand" FontAttributes="Bold"/>
+                            </StackLayout>
+
+                            <StackLayout Padding="0" Margin="15,10">
+                                <Label Text="Email:" TextColor="Black"></Label>
+                                <Frame BackgroundColor="Transparent" BorderColor="DarkGray" Padding="0" HorizontalOptions="FillAndExpand" CornerRadius="30">
+                                    <StackLayout Orientation="Horizontal">
+                                        <Entry Placeholder="Email" TextColor="DarkOrange" FontAttributes="None" HorizontalOptions="FillAndExpand" Margin="10,0,20,0" Text="{Binding User.Email}"/>
+                                    </StackLayout>
+                                </Frame>
+
+                                <Label Text="Hasło:" TextColor="Black" Margin="0,15,0,0"></Label>
+                                <Frame BackgroundColor="Transparent" BorderColor="DarkGray" Padding="0" HorizontalOptions="FillAndExpand" CornerRadius="30">
+                                    <StackLayout Orientation="Horizontal">
+                                        <Entry Placeholder="Hasło" IsPassword="True" TextColor="DarkOrange" FontAttributes="None" HorizontalOptions="FillAndExpand" Margin="10,0,20,0" Text="{Binding User.Password}"/>
+                                    </StackLayout>
+                                </Frame>
+
+                                <StackLayout  Orientation="Horizontal">
+                                    <CheckBox IsChecked="False" Color="DarkOrange" />
+                                    <Label Text="Zapamiętaj" TextColor="DarkGray" FontSize="Small" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" />
+
+                                    <Label Text="Zapomniałeś hasła?" TextColor="DarkOrange" FontAttributes="Bold" HorizontalOptions="EndAndExpand" FontSize="Small" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" />
+
+
+                                </StackLayout>
+
+                                    <local:ButtonWithActivityIndicator  Text="ZALOGUJ" Clicked="Button_Clicked" ActivityIndicatorColor="White" />
+
+                                </StackLayout>
+                            </StackLayout>
+                            <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+                                <Label Text="Nie posiadasz konta?" TextColor="DarkGray" FontSize="Small"/>
+                                <Label Text="Zarejestruj" TextColor="DarkOrange"  FontAttributes="Bold" FontSize="Small">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding RegisterCommand}"/>
+                                    </Label.GestureRecognizers>
+                                </Label>
+                            </StackLayout>
+                        </StackLayout>
+
+                    </Frame>
+                </StackLayout>
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

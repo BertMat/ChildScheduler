@@ -1,0 +1,226 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    xmlns:viewmodels="clr-namespace:ChildScheduler.ViewModels.Events"
+             x:Class="ChildScheduler.Views.Events.EventDetailsPage"
+             xmlns:models="clr-namespace:ChildScheduler.Models"
+             xmlns:lv="clr-namespace:Xamarin.Forms.MultiSelectListView;assembly=Xamarin.Forms.MultiSelectListView"
+             xmlns:local="clr-namespace:ChildScheduler.CustomRenderer"
+    x:DataType="viewmodels:EventCreateViewModel"
+    BackgroundColor="{StaticResource Background}"
+    NavigationPage.HasNavigationBar="False">
+
+    <ContentPage.BindingContext>
+        <viewmodels:EventCreateViewModel />
+    </ContentPage.BindingContext>
+    <StackLayout>
+        <StackLayout Padding="0" Margin="10,0,10,0" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+            <Frame  BackgroundColor="White" HeightRequest="600" WidthRequest="400" HasShadow="True" Padding="0" Margin="0" CornerRadius="20">
+
+                <ScrollView VerticalOptions="FillAndExpand">
+                    <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                        <StackLayout Padding="0" Margin="15,10">
+
+                            <StackLayout>
+                                <Frame x:Name="nameFrame" BackgroundColor="Transparent" BorderColor="DarkGray" WidthRequest="200" Margin="0,15,0,0" Padding="0" HorizontalOptions="FillAndExpand" CornerRadius="30">
+                                    <StackLayout Orientation="Horizontal">
+                                        <local:CustomEntry Placeholder="Tytuł" TextColor="Black" Text="{Binding Event.EventName}" FontAttributes="None" HorizontalOptions="FillAndExpand" Margin="10,0,10,0"/>
+                                    </StackLayout>
+                                </Frame>
+
+                                <Frame x:Name="descriptionFrame" BackgroundColor="Transparent" BorderColor="DarkGray" WidthRequest="200" Margin="0,15,0,0" Padding="0" HorizontalOptions="FillAndExpand" CornerRadius="30">
+                                    <StackLayout Orientation="Horizontal">
+                                        <Editor Placeholder="Opis" Margin="10,0,10,0" Keyboard="Plain" TextColor="Black" Text="{Binding Event.EventDescription}" AutoSize="TextChanges" MinimumWidthRequest="150" MinimumHeightRequest="150">
+
+                                        </Editor>
+
+                                    </StackLayout>
+                                </Frame>
+                                <Label Text="Data wydarzenia:">
+                                </Label>
+                                <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                                    <Label FontAttributes="Bold" FontSize="Medium" VerticalTextAlignment="Center" Padding="0,0,30,0">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{Binding Event.StartDate.Date, StringFormat='{}{0:dd/MM/yyyy}'}" TextColor="Black" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <Frame x:Name="timeFrame" BackgroundColor="Transparent" BorderColor="DarkGray" WidthRequest="200" Margin="0,5,0,0" Padding="0" HorizontalOptions="End" CornerRadius="30">
+                                        <StackLayout Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="Center">
+                                            <TimePicker
+                                        Time="{Binding SelectedTime}"
+                                        Format="HH:mm"
+                                        >
+
+                                            </TimePicker>
+                                        </StackLayout>
+                                    </Frame>
+                                </StackLayout>
+
+                                <!-- CATEGORIES -->
+                                <Label Text="Kategoria:"></Label>
+                                <Picker x:Name="CategoriesListPicker"
+                                Title="Wybierz kategorię"
+                                ItemsSource="{Binding Categories}"
+                    SelectedItem="{Binding SelectedCategory}"
+                                ItemDisplayBinding="{Binding CategoryName}"/>
+                                <!-- CATEGORIES -->
+                                <!-- PLACÓWKI NAUCZANIA -->
+                                <Label Text="Placówka nauczania:"></Label>
+                                <Picker x:Name="InstitutesListPicker"
+                                Title="Wybierz placówkę nauczania"
+                                ItemsSource="{Binding EducationalInstitutions}"
+                    SelectedItem="{Binding SelectedInstitution}"
+                                ItemDisplayBinding="{Binding Name }"/>
+                                <!-- PLACÓWKI NAUCZANIA -->
+                                <!-- CHILDREN -->
+                                <Label Text="Dzieci:"></Label>
+                                <Frame x:Name="childrenFrame" BackgroundColor="Transparent" BorderColor="Gray" WidthRequest="200" Margin="0,15,0,0" Padding="0" HorizontalOptions="FillAndExpand" CornerRadius="10">
+                                    <CollectionView x:Name="listChildren" 
+                                ItemsSource="{Binding Children}"
+                                HeightRequest="100"
+                            BackgroundColor="LightGray"
+                                SelectionMode="Multiple"
+                                EmptyView="Brak dzieci w rodzinie"
+                                            SelectionChanged="listChildren_SelectionChanged"
+                                SelectedItems="{Binding SelectedChildren}">
+                                        <CollectionView.ItemTemplate>
+                                            <DataTemplate x:DataType="models:Child">
+                                                <StackLayout Spacing="8" HorizontalOptions="EndAndExpand">
+                                                    <Frame Style="{StaticResource FrameCardViewStyle}">
+                                                        <StackLayout Style="{StaticResource itemsCardViewStackLayoutStyle}">
+                                                            <StackLayout Style="{StaticResource itemsInsideCardViewStackLayoutStyle}">
+                                                                <StackLayout Style="{StaticResource detailsStackLayout}">
+                                                                    <Label Text="{Binding ChildName}" Style="{StaticResource NameLabel}" />
+                                                                </StackLayout>
+                                                            </StackLayout>
+                                                        </StackLayout>
+                                                    </Frame>
+                                                </StackLayout>
+                                            </DataTemplate>
+                                        </CollectionView.ItemTemplate>
+
+                                    </CollectionView>
+                                </Frame>
+
+                                <!-- PEOPLE -->
+                                <Label Text="Członkowie rodziny:"></Label>
+                                <Frame x:Name="peopleFrame" BackgroundColor="Transparent" BorderColor="Gray" WidthRequest="200" Margin="0,15,0,0" Padding="0" HorizontalOptions="FillAndExpand" CornerRadius="10">
+                                    <CollectionView x:Name="listPeople" 
+                            ItemsSource="{Binding People}"
+                            SelectionMode="Multiple"
+                            BackgroundColor="LightGray"
+                                HeightRequest="100"
+                            EmptyView="Brak członków w rodzinie"
+                                        SelectionChanged="listChildren_SelectionChanged"
+                            SelectedItems="{Binding SelectedPeople}">
+                                        <CollectionView.ItemTemplate>
+                                            <DataTemplate x:DataType="models:Person">
+                                                <StackLayout Spacing="8" HorizontalOptions="EndAndExpand">
+                                                    <Frame Style="{StaticResource FrameCardViewStyle}">
+                                                        <StackLayout Style="{StaticResource itemsCardViewStackLayoutStyle}">
+                                                            <StackLayout Style="{StaticResource itemsInsideCardViewStackLayoutStyle}">
+                                                                <StackLayout Style="{StaticResource detailsStackLayout}">
+                                                                    <Label Text="{Binding DisplayFullName}" Style="{StaticResource NameLabel}" />
+                                                                </StackLayout>
+                                                            </StackLayout>
+                                                        </StackLayout>
+                                                    </Frame>
+                                                </StackLayout>
+                                            </DataTemplate>
+                                        </CollectionView.ItemTemplate>
+
+                                    </CollectionView>
+                                </Frame>
+
+                                <!-- CONTACTS -->
+                                <Label Text="Kontakty:"></Label>
+                                <Frame x:Name="contactsFrame" BackgroundColor="Transparent" BorderColor="Gray" WidthRequest="200" Margin="0,15,0,0" Padding="0" HorizontalOptions="FillAndExpand" CornerRadius="10">
+                                    <CollectionView x:Name="listContacts" 
+                            ItemsSource="{Binding Contacts}"
+                            SelectionMode="Multiple"
+                            HeightRequest="100"
+                            
+                            BackgroundColor="LightGray"
+                            EmptyView="Brak kontaków"
+                                        SelectionChanged="listChildren_SelectionChanged"
+                            SelectedItems="{Binding SelectedContacts}">
+                                        <CollectionView.ItemTemplate>
+                                            <DataTemplate x:DataType="models:Contact">
+                                                <StackLayout Spacing="8" HorizontalOptions="EndAndExpand">
+                                                    <Frame Style="{StaticResource FrameCardViewStyle}">
+                                                        <StackLayout Style="{StaticResource itemsCardViewStackLayoutStyle}">
+                                                            <StackLayout Style="{StaticResource itemsInsideCardViewStackLayoutStyle}">
+                                                                <StackLayout Style="{StaticResource detailsStackLayout}">
+                                                                    <Label Text="{Binding DisplayFullName}" Style="{StaticResource NameLabel}" />
+                                                                </StackLayout>
+                                                            </StackLayout>
+                                                        </StackLayout>
+                                                    </Frame>
+                                                </StackLayout>
+                                            </DataTemplate>
+                                        </CollectionView.ItemTemplate>
+
+                                    </CollectionView>
+                                </Frame>
+                                <!-- PHOTOS -->
+                                <StackLayout Orientation="Horizontal">
+
+                                    <Label Text="Zdjęcia:" VerticalOptions="Center"></Label>
+                                    <Button Text="Dodaj zdjęcie"
+                                        BackgroundColor="Teal"
+                                            Margin="0,5,0,0"
+                                        TextColor="White"
+                                            FontSize="10"
+                                        BorderRadius="10"
+                                        Clicked="PickPhoto_Clicked"
+                                            HorizontalOptions="End"/>
+                                </StackLayout>
+                                <Frame x:Name="photosFrame" BackgroundColor="Transparent" BorderColor="Gray" WidthRequest="200" Margin="0,5,0,0" Padding="0" HorizontalOptions="FillAndExpand" CornerRadius="10">
+                                    <CollectionView x:Name="listPhotos" 
+                                        ItemsSource="{Binding Event.Photos}"
+                                        HeightRequest="150"
+                            
+                                        ItemsLayout="VerticalGrid, 3"
+                                        BackgroundColor="LightGray"
+                                        EmptyView="Brak zdjęć">
+                                        <CollectionView.ItemTemplate>
+                                            <DataTemplate x:DataType="models:EventPhoto">
+                                                <Grid Padding="10">
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="90" />
+                                                    </Grid.RowDefinitions>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="90" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <Frame BackgroundColor="White" BorderColor="White" Margin="0,0,0,0" Padding="0" HorizontalOptions="Center" CornerRadius="10">
+                                                        <Image Source="{Binding Image}"
+                                                           Aspect="AspectFill"
+                                                           HeightRequest="90"
+                                                           WidthRequest="90" />
+                                                    </Frame>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </CollectionView.ItemTemplate>
+
+                                    </CollectionView>
+                                </Frame>
+                            </StackLayout>
+                        </StackLayout>
+                    </StackLayout>
+
+                </ScrollView>
+            </Frame>
+        </StackLayout>
+        <StackLayout HorizontalOptions="End" Padding="10,10">
+            <StackLayout Orientation="Horizontal">
+                <Button Text="Usuń" Clicked="Delete_Clicked" BorderRadius="10" BorderColor="Blue" BackgroundColor="OrangeRed">
+                </Button>
+                <Button Text="Zatwierdź" Clicked="Handle_Clicked" BorderRadius="10" BorderColor="Blue" BackgroundColor="Silver">
+                </Button>
+            </StackLayout>
+            
+        </StackLayout>
+    </StackLayout>
+</ContentPage>

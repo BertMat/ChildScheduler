@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="ChildScheduler.Views.Contacts.EditPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:helpers="clr-namespace:ChildScheduler.Helpers"
+    xmlns:viewmodels="clr-namespace:ChildScheduler.ViewModels"
+    xmlns:models="clr-namespace:ChildScheduler.Models"
+    Title="{Binding Title}"
+    xmlns:local="clr-namespace:ChildScheduler.CustomRenderer"
+    xmlns:pancakeview="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    NavigationPage.BackButtonTitle="Back"
+    x:DataType="viewmodels:EditViewModel"
+    BackgroundColor="{DynamicResource WindowBackgroundColor}"
+    mc:Ignorable="d">
+    <ContentPage.BindingContext>
+        <viewmodels:EditViewModel />
+    </ContentPage.BindingContext>
+
+    <ScrollView>
+        <StackLayout>
+            <Grid>
+                <StackLayout Padding="0" Margin="10,50,10,0" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                    <Frame  BackgroundColor="White" HeightRequest="320" WidthRequest="400" HasShadow="True" Padding="0" Margin="0" CornerRadius="20">
+
+                        <StackLayout>
+
+                            <StackLayout Padding="0" Margin="15,10">
+
+                                <StackLayout>
+                                    <Label Text="Dane personalne"></Label>
+                                    <Frame x:Name="AliasFrame" BackgroundColor="Transparent" BorderColor="DarkGray" Padding="0" Margin="0,5,0,0" HorizontalOptions="FillAndExpand" CornerRadius="30">
+                                        <StackLayout Orientation="Horizontal">
+                                            <local:CustomEntry Placeholder="Pseudonim" TextColor="{StaticResource Accent}" Text="{Binding Contact.ContactAlias}" FontAttributes="None" HorizontalOptions="FillAndExpand" Margin="10,0,20,0"/>
+                                        </StackLayout>
+                                    </Frame>
+
+                                    <Frame x:Name="NameFrame" BackgroundColor="Transparent" BorderColor="DarkGray" Margin="0,5,0,0" Padding="0" HorizontalOptions="FillAndExpand" CornerRadius="30">
+                                        <StackLayout Orientation="Horizontal">
+                                            <local:CustomEntry Placeholder="Imię" TextColor="{StaticResource Accent}" Text="{Binding Contact.ContactName}" FontAttributes="None" HorizontalOptions="FillAndExpand" Margin="10,0,20,0"/>
+                                        </StackLayout>
+                                    </Frame>
+                                    <Frame x:Name="SurnameFrame" BackgroundColor="Transparent" BorderColor="DarkGray" Margin="0,5,0,0" Padding="0" HorizontalOptions="FillAndExpand" CornerRadius="30">
+                                        <StackLayout Orientation="Horizontal">
+                                            <local:CustomEntry Placeholder="Nazwisko" TextColor="{StaticResource Accent}" Text="{Binding Contact.ContactSurname}" FontAttributes="None" HorizontalOptions="FillAndExpand" Margin="10,0,20,0"/>
+                                        </StackLayout>
+                                    </Frame>
+                                    <Frame x:Name="PhoneFrame" BackgroundColor="Transparent" BorderColor="DarkGray" Margin="0,5,0,0" Padding="0" HorizontalOptions="FillAndExpand" CornerRadius="30">
+                                        <StackLayout Orientation="Horizontal">
+                                            <local:CustomEntry Placeholder="Numer telefonu" TextColor="{StaticResource Accent}" Text="{Binding Contact.PhoneNumber}" FontAttributes="None" HorizontalOptions="FillAndExpand" Margin="10,0,20,0"/>
+                                        </StackLayout>
+                                    </Frame>
+                                    <Frame x:Name="EmailFrame" BackgroundColor="Transparent" BorderColor="DarkGray" Margin="0,5,0,0" Padding="0" HorizontalOptions="FillAndExpand" CornerRadius="30">
+                                        <StackLayout Orientation="Horizontal">
+                                            <local:CustomEntry Placeholder="Email" TextColor="{StaticResource Accent}" Text="{Binding Contact.Email}" FontAttributes="None" HorizontalOptions="FillAndExpand" Margin="10,0,20,0"/>
+                                        </StackLayout>
+                                    </Frame>
+
+                                </StackLayout>
+                            </StackLayout>
+                        </StackLayout>
+                    </Frame>
+                    <Frame  BackgroundColor="White" HeightRequest="260" WidthRequest="400" HasShadow="True" Padding="0" Margin="0" CornerRadius="20">
+                        <StackLayout>
+                            <StackLayout Padding="0" Margin="15,10">
+
+                                <StackLayout>
+                                    <Label Text="Adres"></Label>
+                                    <Frame x:Name="PostalCodeFrame" BackgroundColor="Transparent" BorderColor="DarkGray" Padding="0" Margin="0,5,0,0" HorizontalOptions="FillAndExpand" CornerRadius="30">
+                                        <StackLayout Orientation="Horizontal">
+                                            <local:CustomEntry Placeholder="Kod pocztowy" TextColor="{StaticResource Accent}" Text="{Binding Contact.PostalCode}" FontAttributes="None" HorizontalOptions="FillAndExpand" Margin="10,0,20,0"/>
+                                        </StackLayout>
+                                    </Frame>
+
+                                    <Frame x:Name="StateFrame" BackgroundColor="Transparent" BorderColor="DarkGray" Margin="0,5,0,0" Padding="0" HorizontalOptions="FillAndExpand" CornerRadius="30">
+                                        <StackLayout Orientation="Horizontal">
+                                            <local:CustomEntry Placeholder="Województwo" TextColor="{StaticResource Accent}" Text="{Binding Contact.State}" FontAttributes="None" HorizontalOptions="FillAndExpand" Margin="10,0,20,0"/>
+                                        </StackLayout>
+                                    </Frame>
+                                    <Frame x:Name="CityFrame" BackgroundColor="Transparent" BorderColor="DarkGray" Margin="0,5,0,0" Padding="0" HorizontalOptions="FillAndExpand" CornerRadius="30">
+                                        <StackLayout Orientation="Horizontal">
+                                            <local:CustomEntry Placeholder="Miejscowość" TextColor="{StaticResource Accent}" Text="{Binding Contact.City}" FontAttributes="None" HorizontalOptions="FillAndExpand" Margin="10,0,20,0"/>
+                                        </StackLayout>
+                                    </Frame>
+                                    <Frame x:Name="StreetFrame" BackgroundColor="Transparent" BorderColor="DarkGray" Margin="0,5,0,0" Padding="0" HorizontalOptions="FillAndExpand" CornerRadius="30">
+                                        <StackLayout Orientation="Horizontal">
+                                            <local:CustomEntry Placeholder="Ulica" TextColor="{StaticResource Accent}" Text="{Binding Contact.Street}" FontAttributes="None" HorizontalOptions="FillAndExpand" Margin="10,0,20,0"/>
+                                        </StackLayout>
+                                    </Frame>
+                                </StackLayout>
+                            </StackLayout>
+                        </StackLayout>
+                    </Frame>
+                    <Frame
+                            Grid.RowSpan="2"
+                            Margin="8"
+                            Padding="0"
+                            CornerRadius="28"
+                            HasShadow="True"
+                            HeightRequest="56"
+                            HorizontalOptions="End"
+                            Style="{DynamicResource FrameStyle}"
+                            BackgroundColor="{DynamicResource PrimaryColor}"
+                            VerticalOptions="End"
+                            WidthRequest="56">
+                        <ImageButton
+                                Padding="12"
+                                Command="{Binding SaveCommand}"
+                                HorizontalOptions="FillAndExpand"
+                                Style="{DynamicResource FloatingActionButtonStyle}"
+                                BackgroundColor="{DynamicResource PrimaryColor}"
+                                VerticalOptions="FillAndExpand">
+                            <ImageButton.Source>
+                                <FontImageSource
+                                    FontFamily="FASolid"
+                                    Glyph="{x:Static helpers:FAIcons.Save}"
+                                    Color="White" />
+                            </ImageButton.Source>
+                        </ImageButton>
+                    </Frame>
+                </StackLayout>
+            </Grid>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

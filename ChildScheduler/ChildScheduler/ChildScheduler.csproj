@@ -1,0 +1,161 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\Fonts\FABrands.otf" />
+    <None Remove="Resources\Fonts\FARegular.otf" />
+    <None Remove="Resources\Fonts\FASolid.otf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Fonts\FABrands.otf" />
+    <EmbeddedResource Include="Resources\Fonts\FARegular.otf" />
+    <EmbeddedResource Include="Resources\Fonts\FASolid.otf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microcharts.Forms" Version="0.9.5.9" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="5.0.5" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Refractored.MvvmHelpers" Version="1.6.2" />
+    <PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.14" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.12.2" />
+    <PackageReference Include="System.Speech" Version="6.0.0" />
+    <PackageReference Include="System.Text.Json" Version="5.0.2" />
+    <PackageReference Include="Xam.Plugin.Media" Version="5.0.1" />
+    <PackageReference Include="Xamarin.CommunityToolkit" Version="1.2.0" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />  
+    <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />  
+    <PackageReference Include="Xamarin.Forms.Maps" Version="5.0.0.2012" />  
+    <PackageReference Include="Xamarin.Forms.MultiSelectListView" Version="2.1.0" />  
+    <PackageReference Include="Xamarin.Forms.PancakeView" Version="2.3.0.759" />
+    <PackageReference Include="System.Memory" Version="4.5.4">
+      <IncludeAssets>none</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="System.Buffers" Version="4.5.1">
+      <IncludeAssets>none</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Plugin.Calendar" Version="1.4.5304" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Mono.Android">
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\ReferenceAssemblies\Microsoft\Framework\MonoAndroid\v11.0\Mono.Android.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="LoginPages\LoginPage.xaml.cs">
+      <DependentUpon>LoginPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Popups\AddNewCostPage.xaml.cs">
+      <DependentUpon>AddNewCostPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Popups\AddNewEducationalInsPage.xaml.cs">
+      <DependentUpon>AddNewEducationalInsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Popups\AddNewChildPage.xaml.cs">
+      <DependentUpon>AddNewChildPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Styles\LightTheme.xaml.cs">
+      <DependentUpon>LightTheme.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Calendar\CalendarHeader.xaml.cs">
+      <DependentUpon>CalendarHeader.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Children\ChildDetailPage.xaml.cs">
+      <DependentUpon>ChildDetailPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Contacts\ListPage.xaml.cs">
+      <DependentUpon>ListPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="LoginPages\RegisterPage.xaml.cs">
+      <DependentUpon>RegisterPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\EducationalInstitutions\InstitutionDetailPage.xaml.cs">
+      <DependentUpon>InstitutionDetailPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Events\EventDetailsPage.xaml.cs">
+      <DependentUpon>EventDetailsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Events\EventListPage.xaml.cs">
+      <DependentUpon>EventListPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Families\FamilyPage.xaml.cs">
+      <DependentUpon>FamilyPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Profile\ProfileOverviewPage.xaml.cs">
+      <DependentUpon>ProfileOverviewPage.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="LoginPages\MainPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Popups\ChangePasswordPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Styles\DarkTheme.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Styles\LightTheme.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\ButtonActivityIndicatorRight.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\ButtonWithActivityIndicator.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Calendar\AdvancedPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Calendar\CalendarEvent.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Calendar\CalendarFooter.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Calendar\CalendarHeader.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Categories\CategoryCreatePage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Categories\CategoryListPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Contacts\DetailPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Contacts\EditPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Contacts\ListPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Costs\CostDiagramPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Events\EventCreatePage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Events\EventListPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\People\CreateProfilePage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Profile\ProfileOverviewPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\SettingsPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+</Project>
